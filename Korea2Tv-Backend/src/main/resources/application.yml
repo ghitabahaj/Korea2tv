@@ -1,0 +1,35 @@
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Spring Configuration
+spring:
+  # to enable colors when you run your app outside IntelliJ
+  output:
+    ansi:
+      enabled: always
+  # Database Configuration
+  datasource:
+    url: jdbc:mysql://localhost:3306/korea2tv?createDatabaseIfNotExist=true
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      ddl-auto: update
+  liquibase:
+    enabled: false
+    change-log: classpath:/db/changelog-master.xml
+
+  tmdb:
+    api:
+      key: "6012a2495a4fe600579a02c19b35cf28"
+      link-v3: "https://api.themoviedb.org/3"

@@ -10,7 +10,7 @@ import { MovieApiServiceService } from './service/movie-api-service.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-password.component';
-import { NgClass, NgIf } from '@angular/common';
+import { SafePipe } from './pages/pipe/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { NgClass, NgIf } from '@angular/common';
     SearchComponent,
     MovieDetailsComponent,
     SignupComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -29,6 +30,7 @@ import { NgClass, NgIf } from '@angular/common';
 
   ],
   providers: [MovieApiServiceService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [SafePipe]
 })
 export class AppModule { }

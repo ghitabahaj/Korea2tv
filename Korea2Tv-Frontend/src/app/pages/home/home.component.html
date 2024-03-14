@@ -2,6 +2,48 @@
 <div class="contain-fluid">
   <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-inner">
+      <div class="carousel-item active position-relative" data-bs-interval="10000" *ngFor="let b of bannerResult;let i=index"
+      [ngClass]="{active:i===1}"
+        >
+        <div class="position-absolute w-100 top-0 left-0" [style.background-image]="'url(https://image.tmdb.org/t/p/original/' + b.backdrop_path + ')'" style="background-position: center; background-repeat: no-repeat;background-size: cover;height: 700px; z-index: -20; filter: blur(10px);"></div>
+        <!-- <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="position-absolute w-100 z-n1" alt="..."> -->
+        <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="d-block" style="width: 90%; height: 600px; margin:auto; margin-top: 45px;" alt="...">
+        <div class="position-absolute d-flex flex-column text-white justify-content-center" style="top: 45px; left: 5%; width: 90%; height: 650px;  background: linear-gradient(to right, rgba(40, 40, 60, 0.555) 0%,rgba(40,0,60,0) 90%); padding: 10em; gap: 1em;">
+          <h2 style="font-weight: bold; text-transform: capitalize;">{{b.original_title || b.original_name}}</h2>
+          <div class="d-flex align-items-center" style="gap: 2em;">
+            
+            <p class="d-flex flex-column" style="gap: 1em;"><span class="rounded" style="padding: 4px; background-color: darkred; ">{{b.media_type}}</span></p>
+            <h3 class="pb-3">{{b.vote_average}}</h3>
+          </div>
+          <p style="max-width: 70ch;">{{b.overview}}</p>
+          <button class="watch-trailer-btn" [routerLink]="['/movie',b.id]"
+          style="
+            background-color: rgba(0, 0, 0, 0.356);
+            color: white;
+            border: 1px solid white;
+            width: max-content;
+            padding: 10px 20px;
+            border-radius: 6px;
+          ">
+          Watch Trailer
+        </button>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+<!-- banner start 
+<div class="contain-fluid">
+  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="10000" *ngFor="let b of bannerResult;let i=index"
         [ngClass]="{active:i===1}">
         <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="d-block w-100" alt="...">
@@ -20,7 +62,7 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-</div>
+</div> -->
 <!-- banner end  -->
 
 <div class="contain mt-3 mb-5 p-4">

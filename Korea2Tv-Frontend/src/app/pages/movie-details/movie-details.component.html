@@ -1,91 +1,78 @@
-<!--  <div class="contain mt-5">
-        <div class="row p-5">
-            <div class="col-lg-2" *ngIf="getMovieDetailResult.poster_path">
-                    <img 
-                    src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path }}" 
-                    >
-            </div>
-            <div class="col-lg-10 mt-5 p-4">
-                    <h1 class="mt-2 mb-2">{{getMovieDetailResult.original_title}}</h1>
-                    <p class="mt-3 mb-3">{{getMovieDetailResult.overview}}</p>
-                    <a class="btn btn-md" href="https://www.themoviedb.org/video/play?key={{getMovieVideoResult}}" 
-                    target="_blank"
-                    >watch trailer</a>
-
-                    <div class="mt-4 p-4">
-                        <h2 class="text-white">Top Cast</h2>
-                        <div class="row">
-                        <div class="col-lg-4" *ngFor="let c of getMovieCastResult">
-                            <div class="row mt-2 mb-2">
-                                <div class="col-lg-2" *ngIf="c.profile_path">
-                                    <img 
-                                    src="https://image.tmdb.org/t/p/original/{{ c.profile_path}}" 
-                                    >
-                                </div>
-                                <div class="col-lg-10">
-                                    <h3 class="text-white">{{c.original_name}}</h3>
-                                    <p class="text-white">{{c.character}}</p>
-                                </div>
-                            </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-            </div>
-        </div>
-</div>
-
--->
-<div class="movie-card p-2">
-    <div class="poster-wrapper">
-      <div class="poster">
-        <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path }}" alt="poster" />
-        <div class="release-date">
+<div class="">
+  <div class="movie-card p-2">
+      <div class="poster-wrapper">
+        <div class="poster">
+          <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path }}" alt="poster" />
+          <div class="release-date">
           <h2>{{ getMovieDetailResult.release_date | date:'dd' }}</h2>
           <div class="divider"></div>
           <p>{{ getMovieDetailResult.release_date | date:'MMM yyyy' | uppercase }}</p>
-        </div>
+          </div>
         <div class="btn-play">&#9655;</div>
       </div>
-    </div>
+      </div>
     <!-- end poster-wrapper -->
     <div class="movie-info">
       <div class="header-section" >
-        <h2>{{getMovieDetailResult.title}}</h2>
-        <p>{{getMovieDetailResult.production_countries[0].name}}  / {{getMovieDetailResult.original_language}} / {{getMovieDetailResult}} / {{ getMovieDetailResult.runtime / 60 | number:'1.0-0' }}h {{ getMovieDetailResult.runtime % 60 }}min</p>
+        <h2 style="color: whitesmoke !important;">{{getMovieDetailResult.title}}</h2>
+        <p style="color: goldenrod !important;">{{ getMovieDetailResult.production_countries[0].name }}  / {{getMovieDetailResult.original_language}} / {{ ((getMovieDetailResult.runtime ) / 60) | number:'1.0-0' }}h {{ getMovieDetailResult.runtime % 60 |number:'2.0-0' }}min</p>
         <div class="extra" >
-          <div class="ratings"><p>	&#9733; &#9733; &#9733; &#9733;	&#9734; 8.0</p></div>
-          <p class="channels"><span class="genre-button"  *ngFor="let g of getMovieDetailResult.genres">{{ g.name }}</span>
+          <div class="ratings">
+            <p>
+              <!-- Display filled stars based on the rating -->
+              <ng-container *ngFor="let star of generateStarsArray(getMovieDetailResult.vote_average)">
+                <span *ngIf="star === 1">&#9733;</span> <!-- Filled star symbol -->
+                <span *ngIf="star === 0">&#9734;</span> <!-- Empty star symbol -->
+              </ng-container>
+              <!-- Display the average rating -->
+              {{ getMovieDetailResult.vote_average }}
+            </p>
+            <!-- Display the number of reviews -->
+            <p class="reviews">{{ getMovieDetailResult.vote_count }} reviews</p>
+          </div>
+          
+          <p class="channels"><span class="genre-button"  *ngFor="let g of getMovieDetailResult.genres">{{ g.name }}</span></p>
         </div>
       </div>
       <div class="cast-section">
-        <h3>THE CAST</h3>
+        <h3 style="color: goldenrod !important;">THE CAST</h3>
         <div class="casts">
-          <img src="https://m.media-amazon.com/images/M/MV5BNDg4OTczODE5Nl5BMl5BanBnXkFtZTcwMjgwMjA0Mg@@._V1_UY44_CR3,0,32,44_AL_.jpg" alt="avatar" />
-          <img src="https://m.media-amazon.com/images/M/MV5BOTkyNDE4NTA4NF5BMl5BanBnXkFtZTgwOTY3ODQ1MDI@._V1_UY44_CR3,0,32,44_AL_.jpg" alt="avatar" />
-          <img src="https://m.media-amazon.com/images/M/MV5BNzYwMTQ1ODY1MV5BMl5BanBnXkFtZTgwMTU5NDc5OTE@._V1_UY44_CR17,0,32,44_AL_.jpg" alt="avatar" />
-          <img src="https://m.media-amazon.com/images/M/MV5BMTEyMDA1MzE0NjdeQTJeQWpwZ15BbWU3MDM0NzA4MDQ@._V1_UY44_CR1,0,32,44_AL_.jpg" alt="avatar" />
+            <ng-container *ngFor="let actor of getMovieCastResult.slice(0, 4)">
+                <div class="actor-container">
+                    <img [src]="actor.profile_path ? 'https://image.tmdb.org/t/p/w200' + actor.profile_path : 'https://via.placeholder.com/50'" alt="avatar" />
+                    <div class="actor-name">{{ actor.name }}</div>
+                </div>
+            </ng-container>
         </div>
-      </div>
+    </div>
       <div class="synopsis-section" >
-        <h3>SYNOPSIS</h3>
-        <p>
+        <h3 style="color: goldenrod !important;">SYNOPSIS</h3>
+        <p style="color: whitesmoke !important;">
             {{getMovieDetailResult.overview}}
         </p>
       </div>
-      <div class="gallery-section">
-        <h3>VIDEO / PICTURE</h3>
-        <div class="gallery">
-          <div class="small"><img src="https://m.media-amazon.com/images/M/MV5BYzkyNGViZDItYzFkMy00OGM0LTg3NzktZGVkZjM2Mzk1OGEzXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg" alt="media" /></div>
-          <div class="medium"><img src="https://m.media-amazon.com/images/M/MV5BNTkxOGIwYzUtNzc0ZS00MTBkLWFkODItYzEzNGRkN2E3MTAxXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg" alt="media" /></div>
-          <div class="small"><img src="https://m.media-amazon.com/images/M/MV5BMzg2OTY3MjE3OF5BMl5BanBnXkFtZTgwNTkxMDU0MDI@._V1_SX1777_CR0,0,1777,745_AL_.jpg" alt="media" /></div>
-        </div>
-      </div>
     </div>
   </div>
+ 
+      <div class="trailer">
+        <h2 class="text-center py-3 fw-bold" style="color: goldenrod !important;">Watch the Trailer</h2>
+        <div class="py-2">
+          <iframe class="trailer-iframe" width="900" height="600" [src]="" title="YouTube video player" frameborder="0" rel="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
 
-  <div>
-     <h1 style="width: 50px;" class ="m-auto mt-5 fs-2 fw-bold">Movie Trailer</h1>
+      <div class="relatedMovies">
+        <h5 class="fw-bold fs-3" style="color: goldenrod !important;">Related Movies</h5>
+        <div class="rowposter mt-3 p-2">
+          <ng-container *ngFor="let t of relatedMovies">
+            <img src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}" class="rowimg largeposter" alt="..."
+              [routerLink]="['/movie',t.id]">
+          </ng-container>
     
-  </div>
+        </div>
+    
+      </div>
+      
+</div>
+    
+

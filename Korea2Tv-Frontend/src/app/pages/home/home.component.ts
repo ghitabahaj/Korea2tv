@@ -10,7 +10,6 @@ import { Title,Meta } from '@angular/platform-browser';
 export class HomeComponent implements OnInit {
 
   constructor(private service: MovieApiServiceService,private title:Title,private meta:Meta) {
-    this.title.setTitle('Home - showtime');
     this.meta.updateTag({name:'description',content:'watch online movies'});
     
    }

@@ -56,8 +56,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #ddd;
   background:red;
-    background: radial-gradient(#252525, #181818, #212121);
-    background-position: center; 
+   background-position: center; 
     height: 100vh;
     margin: 0;
     display: flex;
@@ -210,4 +209,14 @@ p {
 
 .sign {
     fill: rgb(251, 115, 36) !important;
+}
+
+.watch-trailer-btn{
+    transition: all 0.3s ease;
+}
+.watch-trailer-btn:hover{
+    font-weight: bold !important;
+    color: black !important;
+    background-color: white !important;
+    box-shadow: 0 0 10px 1px #FFF;
 }

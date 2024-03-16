@@ -2,6 +2,8 @@ package  com.youcode.korea2tv.models.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.text.CharacterPredicates;
+import org.apache.commons.text.RandomStringGenerator;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -25,18 +27,16 @@ public class Media {
     private String idImdb;
     private String title;
     private String originalTitle;
-    private LocalDate duration;
+    private Integer duration;
     private String posterPath;
     private String backDropPath;
-    private String linkTrailer;
-    private String director;
     private String status;
     private LocalDate releaseDate;
     @Column(length = 10000)
     private String overview;
-    private UUID shortLink;
+    @Column(unique = true)
+    private String shortLink;
     private String originalLanguage;
-//    private Boolean statusSerie;
     private Integer levelView;
     private Boolean adult;
     private Double popularity;
@@ -77,21 +77,23 @@ public class Media {
     )
     private Set<Videos> videos;
 
-    @ManyToOne
-    @JoinColumn(name = "season_id")
-    private Season season;
+    @OneToMany(mappedBy = "media")
+    private Set<Season> seasons;
 
     @OneToMany(mappedBy = "media")
     private Set<Watchlist> watchlists;
 
     @OneToMany(mappedBy = "media")
-    private Set<ServerPlay> serverPlays;
+    private Set<MediaServerPlay> serverPlays;
+
+    @OneToMany(mappedBy = "media")
+    @OrderBy(value = "_order")
+    private Set<MediaCredit> credits;
+
+    @OneToMany(mappedBy = "media")
+    private Set<Slider> sliders;
 
     @ManyToOne
     private TypeQuality typeQuality;
-
-    @OneToOne
-    private Slider slider;
-
 
 }

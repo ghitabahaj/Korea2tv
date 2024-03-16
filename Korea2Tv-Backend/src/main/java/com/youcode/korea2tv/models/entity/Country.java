@@ -14,10 +14,6 @@ import java.util.List;
 public class Country {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String iso;
-    private String englishName;
-    private String nativeName;
-
-
+    private String name;
 }

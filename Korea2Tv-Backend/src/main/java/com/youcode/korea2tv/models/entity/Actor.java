@@ -29,11 +29,4 @@ public class Actor {
     private Double popularity;
     private String profilePath;
     private LocalDate birthDate;
-    @ManyToMany
-    @JoinTable(
-            name = "media_actor",
-            joinColumns = @JoinColumn(name = "media_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
-    private List<Media> mediaList;
 }

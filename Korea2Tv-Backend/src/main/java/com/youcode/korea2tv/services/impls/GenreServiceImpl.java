@@ -1,8 +1,8 @@
-package com.example.vistreamv2.services.impls;
+package com.youcode.korea2tv.services.impls;
 
-import com.example.vistreamv2.models.entity.Genre;
-import com.example.vistreamv2.repositories.GenreRepository;
-import com.example.vistreamv2.services.GenreService;
+import com.youcode.korea2tv.models.entity.Genre;
+import com.youcode.korea2tv.repositories.GenreRepository;
+import com.youcode.korea2tv.services.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

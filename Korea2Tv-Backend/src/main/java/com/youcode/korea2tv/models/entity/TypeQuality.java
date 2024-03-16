@@ -1,6 +1,6 @@
 package  com.youcode.korea2tv.models.entity;
 
-import com.example.vistreamv2.models.enums.TypeQualityMedia;
+import com.youcode.korea2tv.models.enums.TypeQualityMedia;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -12,11 +12,6 @@ import lombok.*;
 public class ServerPlay {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "media_id")
-    private Media media;
-    @ManyToOne
-    @JoinColumn(name = "episode_id")
-    private Episode episode;
 }

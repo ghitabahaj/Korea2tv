@@ -13,7 +13,9 @@ public class Slider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     private String picture;
-    @OneToOne
+
+    @ManyToOne
     private Media media;
 }

@@ -1,5 +1,6 @@
 package  com.youcode.korea2tv.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,7 @@ public class Season {
     private Long id;
     @Column(unique = true)
     private Long idTmdb;
-    private String name;
+    private String title;
     private Integer seasonNumber;
     private String picture;
     private Double voteAverage;
@@ -27,8 +28,14 @@ public class Season {
     private Integer episodeCount;
     private String overview;
 
+    @ManyToOne
+    @JoinColumn(name = "media_id")
+    @JsonBackReference
+    private Media media;
+
     @OneToMany(mappedBy = "season")
-    private List<Media> mediaList;
+    @JsonBackReference
+    private Set<MediaServerPlay> serverPlays;
 
     @OneToMany(mappedBy = "season")
     private Set<Episode> episodes;

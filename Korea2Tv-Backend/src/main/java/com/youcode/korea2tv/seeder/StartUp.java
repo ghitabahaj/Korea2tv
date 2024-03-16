@@ -33,6 +33,6 @@ public class StartUp implements CommandLineRunner {
         //seed data from api
         genreSeeder.fetchAndSaveGenre();
 //        countrySeeder.fetchAndSaveCountries();
-        movieSeeder.fetchIdTmdbMedia();
+        movieSeeder.fetchMediaTmdb();
     }
 }

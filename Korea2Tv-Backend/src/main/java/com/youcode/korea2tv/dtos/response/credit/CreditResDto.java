@@ -1,18 +1,13 @@
-package  com.youcode.korea2tv.models.entity;
+package com.youcode.korea2tv.dtos.response.credit;
 
-import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Credit {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true)
+public class CreditResDto {
     private Long idTmdb;
     private Boolean adult;
     private Integer gender;

@@ -1,6 +1,6 @@
 package com.youcode.korea2tv.dtos.response.movie;
 
-import com.example.vistreamv2.models.entity.TypeQuality;
+import com.youcode.korea2tv.models.entity.TypeQuality;
 import jakarta.persistence.Column;
 import lombok.*;
 

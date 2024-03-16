@@ -6,7 +6,7 @@ import com.youcode.korea2tv.dtos.response.media.credit.MediaCreditResDto;
 import com.youcode.korea2tv.dtos.response.media.serverPlay.MediaServerPlayResDto;
 import com.youcode.korea2tv.dtos.response.production.ProductionResDto;
 import com.youcode.korea2tv.dtos.response.video.VideoResDto;
-import com.example.vistreamv2.models.entity.*;
+import com.youcode.korea2tv.models.entity.*;
 import lombok.*;
 
 import java.time.LocalDate;

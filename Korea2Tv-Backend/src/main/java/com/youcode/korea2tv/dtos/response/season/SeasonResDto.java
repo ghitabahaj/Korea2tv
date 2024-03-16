@@ -1,7 +1,7 @@
 package com.youcode.korea2tv.dtos.response.season;
 
 import com.youcode.korea2tv.dtos.response.episode.EpisodeResDto;
-import com.example.vistreamv2.models.entity.Episode;
+import com.youcode.korea2tv.models.entity.Episode;
 import lombok.*;
 
 import java.time.LocalDate;

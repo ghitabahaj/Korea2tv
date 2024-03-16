@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-password.component';
 import { SafePipe } from './pages/pipe/safe.pipe';
+import { ActorProfileComponent } from './pages/actor-profile/actor-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SafePipe } from './pages/pipe/safe.pipe';
     MovieDetailsComponent,
     SignupComponent,
     ForgetPasswordComponent,
-    SafePipe
+    SafePipe,
+    ActorProfileComponent
   ],
   imports: [
     BrowserModule,

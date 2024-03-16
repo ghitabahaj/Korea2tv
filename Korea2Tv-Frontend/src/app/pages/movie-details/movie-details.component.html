@@ -15,7 +15,7 @@
     <div class="movie-info">
       <div class="header-section" >
         <h2 style="color: whitesmoke !important;">{{getMovieDetailResult.title}}</h2>
-        <p style="color: goldenrod !important;">{{ getMovieDetailResult.production_countries[0].name }}  / {{getMovieDetailResult.original_language}} / {{ ((getMovieDetailResult.runtime ) / 60) | number:'1.0-0' }}h {{ getMovieDetailResult.runtime % 60 |number:'2.0-0' }}min</p>
+        <p style="color: goldenrod !important;">{{ getMovieDetailResult.production_countries[0].name }}  / {{getMovieDetailResult.original_language}} / {{ getMovieDetailResult.runtime}} min</p>
         <div class="extra" >
           <div class="ratings">
             <p>
@@ -38,7 +38,7 @@
         <h3 style="color: goldenrod !important;">THE CAST</h3>
         <div class="casts">
             <ng-container *ngFor="let actor of getMovieCastResult.slice(0, 4)">
-                <div class="actor-container">
+                <div class="actor-container" [routerLink]="['/actor', actor.id]">
                     <img [src]="actor.profile_path ? 'https://image.tmdb.org/t/p/w200' + actor.profile_path : 'https://via.placeholder.com/50'" alt="avatar" />
                     <div class="actor-name">{{ actor.name }}</div>
                 </div>
@@ -57,11 +57,11 @@
       <div class="trailer">
         <h2 class="text-center py-3 fw-bold" style="color: goldenrod !important;">Watch the Trailer</h2>
         <div class="py-2">
-          <iframe class="trailer-iframe" width="900" height="600" [src]="" title="YouTube video player" frameborder="0" rel="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <iframe class="trailer-iframe" width="900" height="600" [src]="getSafeUrl(getTrailerUrl(getMovieVideoResult))" title="YouTube video player" frameborder="0" rel="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
 
-      <div class="relatedMovies">
+      <div class="relatedMovies px-5 my-4">
         <h5 class="fw-bold fs-3" style="color: goldenrod !important;">Related Movies</h5>
         <div class="rowposter mt-3 p-2">
           <ng-container *ngFor="let t of relatedMovies">

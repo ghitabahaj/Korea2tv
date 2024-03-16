@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
   thrillerMovieResult: any = [];
 
   ngOnInit(): void {
+    console.log('====================================');
+
     this.bannerData();
     this.trendingData();
     this.actionMovie();

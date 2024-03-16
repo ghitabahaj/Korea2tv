@@ -1,5 +1,4 @@
-<!-- navbar start  -->
-<nav class="navbar navbar-expand-lg sticky-top mb-5" [ngStyle]="navbg">
+<nav class="navbar navbar-expand-lg sticky-top mb-5">
   <div class="container-fluid">
     <div class="flex items-center justify-center">
       <a>
@@ -7,7 +6,8 @@
       </a>
       <b class="text-xl pl-3 mt-5 font-bold text-white-700 dark:text-white"> KOREA2TV </b>
     </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -18,10 +18,77 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="search">Search</a>
         </li>
+        <!-- Sign In Modal Trigger -->
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>
+        </li>
+        <!-- Sign Up Modal Trigger -->
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
+<!-- Sign In Modal -->
+<div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <!-- Your sign in form fields go here -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="signInEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="signInEmail" aria-describedby="emailHelp" required>
+          </div>
+          <div class="mb-3">
+            <label for="signInPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signInPassword" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <!-- Your sign up form fields go here -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="signUpEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp" required>
+          </div>
+          <div class="mb-3">
+            <label for="signUpPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signUpPassword" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <!-- navbar end  -->
 
 <router-outlet></router-outlet>

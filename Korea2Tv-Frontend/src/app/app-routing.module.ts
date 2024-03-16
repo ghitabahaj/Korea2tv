@@ -4,11 +4,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { MovieDetailsComponent } from './pages/movie-details/movie-details.component';
 import { SearchComponent } from './pages/search/search.component';
 import { SigninComponent } from './pages/auth/signin/signin.component';
+import { ActorProfileComponent } from './pages/actor-profile/actor-profile.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'search',component:SearchComponent},
   {path:'movie/:id',component:MovieDetailsComponent},
+  {path:'actor/:id',component:ActorProfileComponent},
 ];
 
 @NgModule({

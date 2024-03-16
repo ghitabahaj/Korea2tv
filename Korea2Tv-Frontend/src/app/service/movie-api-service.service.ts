@@ -34,6 +34,14 @@ export class MovieApiServiceService {
     return this.http.get(`${this.baseurl}/search/movie?api_key=${this.apikey}&query=${data.movieName}`);
   }
 
+  getActorDetails(actorId: number): Observable<any> {
+    return this.http.get(`${this.baseurl}/person/${actorId}?api_key=${this.apikey}`);
+  }
+
+  getActorMovies(actorId: number): Observable<any> {
+    return this.http.get(`${this.baseurl}/person/${actorId}/movie_credits?api_key=${this.apikey}`);
+  }
+
   // getmoviedatails
   getMovieDetails(data: any): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/${data}?api_key=${this.apikey}`)

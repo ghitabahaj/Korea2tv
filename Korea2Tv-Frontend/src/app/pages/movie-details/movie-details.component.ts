@@ -23,6 +23,7 @@ export class MovieDetailsComponent implements OnInit {
   relatedMovies: any;
 
   ngOnInit(): void {
+
     let getParamId = this.router.snapshot.paramMap.get('id');
     console.log(getParamId,'getparamid#');
   

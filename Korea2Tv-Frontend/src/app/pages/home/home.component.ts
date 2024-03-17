@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieApiServiceService } from 'src/app/service/movie-api-service.service';
 import { Title,Meta } from '@angular/platform-browser';
+import { Observable, catchError, map, of, startWith } from 'rxjs';
+import { ApiResponse } from 'src/app/models/api-response';
+import { Media } from 'src/app/models/media';
+import { Page } from 'src/app/models/pageable';
 
 @Component({
   selector: 'app-home',
@@ -9,43 +13,73 @@ import { Title,Meta } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private service: MovieApiServiceService,private title:Title,private meta:Meta) {
-    this.meta.updateTag({name:'description',content:'watch online movies'});
-    
-   }
+  mediaState$!: Observable<{ appState: string, appData?: ApiResponse<Page<Media>> }>;
 
+  constructor(private service: MovieApiServiceService, private title: Title, private meta: Meta) {
+    this.meta.updateTag({ name: 'description', content: 'watch online movies' });
+
+  }
   bannerResult: any = [];
-  trendingMovieResult: any = [];
-  actionMovieResult: any = [];
-  adventureMovieResult: any = [];
-  animationMovieResult: any = [];
-  comedyMovieResult: any = [];
-  documentaryMovieResult: any = [];
-  sciencefictionMovieResult: any = [];
-  thrillerMovieResult: any = [];
+  koreanMovieResult: Media[] = []; // New property for Korean movies
+  typeMedia!: string;
+   trendingMovieResult: any = [];
+  // actionMovieResult: any = [];
+  // adventureMovieResult: any = [];
+  // animationMovieResult: any = [];
+  // comedyMovieResult: any = [];
+  // documentaryMovieResult: any = [];
+  // sciencefictionMovieResult: any = [];
+  // thrillerMovieResult: any = [];
 
   ngOnInit(): void {
-    console.log('====================================');
-
     this.bannerData();
-    this.trendingData();
-    this.actionMovie();
-    this.adventureMovie();
-    this.comedyMovie();
-    this.animationMovie();
-    this.documentaryMovie();
-    this.sciencefictionMovie();
-    this.thrillerMovie();
+    this.trendingData();    
+    this.getMedia("movie"); 
+    // this.actionMovie();
+    // this.adventureMovie();
+    // this.comedyMovie();
+    // this.animationMovie();
+    // this.documentaryMovie();
+    // this.sciencefictionMovie();
+    // this.thrillerMovie();
   }
 
 
   // bannerdata
   bannerData() {
-    this.service.bannerApiData().subscribe((result) => {
-      console.log(result, 'bannerresult#');
-      this.bannerResult = result.results;
-    });
+    this.service.bannerApiData().subscribe(
+      (result) => {
+        if (result && result.result && result.result.trendingKoreanMovies) {
+          this.bannerResult = result.result.trendingKoreanMovies;
+        } else {
+          console.error("Unexpected response format:", result);
+          // Handle unexpected response format here
+        }
+      },
+      (error) => {
+        console.error("Error fetching banner data:", error);
+        // Handle error here
+      }
+    );
   }
+
+  public getMedia(typeMedia: string) {
+    this.mediaState$ = this.service.getMedia(typeMedia).pipe(
+      
+      map((response: ApiResponse<Page<Media>>) => {
+        
+        console.log(response, 'response#');
+        
+        return { appState: "app_loaded", appData: response };
+
+      }),
+      startWith({ appState: "app_loading"}),
+      catchError((error: any) => of({ appState: 'app_error', error }))
+    );
+  }
+
+  
+
 
   trendingData() {
     this.service.trendingMovieApiData().subscribe((result) => {
@@ -55,59 +89,60 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // action 
-  actionMovie() {
-    this.service.fetchActionMovies().subscribe((result) => {
-      this.actionMovieResult = result.results;
-    });
-  }
+
+  // // action 
+  // actionMovie() {
+  //   this.service.fetchActionMovies().subscribe((result) => {
+  //     this.actionMovieResult = result.results;
+  //   });
+  // }
 
 
 
 
-  // adventure 
-  adventureMovie() {
-    this.service.fetchAdventureMovies().subscribe((result) => {
-      this.adventureMovieResult = result.results;
-    });
-  }
+  // // adventure 
+  // adventureMovie() {
+  //   this.service.fetchAdventureMovies().subscribe((result) => {
+  //     this.adventureMovieResult = result.results;
+  //   });
+  // }
 
 
-  // animation 
-  animationMovie() {
-    this.service.fetchAnimationMovies().subscribe((result) => {
-      this.animationMovieResult = result.results;
-    });
-  }
+  // // animation 
+  // animationMovie() {
+  //   this.service.fetchAnimationMovies().subscribe((result) => {
+  //     this.animationMovieResult = result.results;
+  //   });
+  // }
 
 
-  // comedy 
-  comedyMovie() {
-    this.service.fetchComedyMovies().subscribe((result) => {
-      this.comedyMovieResult = result.results;
-    });
-  }
+  // // comedy 
+  // comedyMovie() {
+  //   this.service.fetchComedyMovies().subscribe((result) => {
+  //     this.comedyMovieResult = result.results;
+  //   });
+  // }
 
-  // documentary 
-  documentaryMovie() {
-    this.service.fetchDocumentaryMovies().subscribe((result) => {
-      this.documentaryMovieResult = result.results;
-    });
-  }
+  // // documentary 
+  // documentaryMovie() {
+  //   this.service.fetchDocumentaryMovies().subscribe((result) => {
+  //     this.documentaryMovieResult = result.results;
+  //   });
+  // }
 
 
-  // science-fiction 
-  sciencefictionMovie() {
-    this.service.fetchScienceFictionMovies().subscribe((result) => {
-      this.sciencefictionMovieResult = result.results;
-    });
-  }
+  // // science-fiction 
+  // sciencefictionMovie() {
+  //   this.service.fetchScienceFictionMovies().subscribe((result) => {
+  //     this.sciencefictionMovieResult = result.results;
+  //   });
+  // }
 
-  // thriller
-  thrillerMovie() {
-    this.service.fetchThrillerMovies().subscribe((result) => {
-      this.thrillerMovieResult = result.results;
-    });
-  }
+  // // thriller
+  // thrillerMovie() {
+  //   this.service.fetchThrillerMovies().subscribe((result) => {
+  //     this.thrillerMovieResult = result.results;
+  //   });
+  // }
 
 }

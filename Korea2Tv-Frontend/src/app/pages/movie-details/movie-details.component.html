@@ -1,78 +1,76 @@
-<div class="">
+<div class="movie-details-container" *ngIf="movieDetails">
   <div class="movie-card p-2">
-      <div class="poster-wrapper">
-        <div class="poster">
-          <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path }}" alt="poster" />
-          <div class="release-date">
-          <h2>{{ getMovieDetailResult.release_date | date:'dd' }}</h2>
+    <div class="poster-wrapper">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/{{ movieDetails.posterPath }}" alt="poster" />
+        <div class="release-date">
+          <h2>{{ movieDetails.releaseDate | date:'dd' }}</h2>
           <div class="divider"></div>
-          <p>{{ getMovieDetailResult.release_date | date:'MMM yyyy' | uppercase }}</p>
-          </div>
+          <p>{{ movieDetails.releaseDate | date:'MMM yyyy' | uppercase }}</p>
+        </div>
         <div class="btn-play">&#9655;</div>
       </div>
-      </div>
+    </div>
     <!-- end poster-wrapper -->
     <div class="movie-info">
-      <div class="header-section" >
-        <h2 style="color: whitesmoke !important;">{{getMovieDetailResult.title}}</h2>
-        <p style="color: goldenrod !important;">{{ getMovieDetailResult.production_countries[0].name }}  / {{getMovieDetailResult.original_language}} / {{ getMovieDetailResult.runtime}} min</p>
-        <div class="extra" >
+      <div class="header-section">
+        <h2 style="color: whitesmoke !important;">{{ movieDetails.title }}</h2>
+        <p style="color: goldenrod !important;">
+          {{ movieDetails.countries[0].name }} / {{ movieDetails.originalLanguage }} / {{ movieDetails.duration }} min
+        </p>
+        <div class="extra">
           <div class="ratings">
             <p>
               <!-- Display filled stars based on the rating -->
-              <ng-container *ngFor="let star of generateStarsArray(getMovieDetailResult.vote_average)">
+              <ng-container *ngFor="let star of generateStarsArray(movieDetails.voteAverage)">
                 <span *ngIf="star === 1">&#9733;</span> <!-- Filled star symbol -->
                 <span *ngIf="star === 0">&#9734;</span> <!-- Empty star symbol -->
               </ng-container>
               <!-- Display the average rating -->
-              {{ getMovieDetailResult.vote_average }}
+              {{ movieDetails.voteAverage }}
             </p>
             <!-- Display the number of reviews -->
-            <p class="reviews">{{ getMovieDetailResult.vote_count }} reviews</p>
+            <p class="reviews">{{ movieDetails.voteCount }} reviews</p>
           </div>
-          
-          <p class="channels"><span class="genre-button"  *ngFor="let g of getMovieDetailResult.genres">{{ g.name }}</span></p>
+          <p class="channels">
+            <span class="genre-button" *ngFor="let g of movieDetails.genres">{{ g.name }}</span>
+          </p>
         </div>
       </div>
       <div class="cast-section">
         <h3 style="color: goldenrod !important;">THE CAST</h3>
         <div class="casts">
-            <ng-container *ngFor="let actor of getMovieCastResult.slice(0, 4)">
-                <div class="actor-container" [routerLink]="['/actor', actor.id]">
-                    <img [src]="actor.profile_path ? 'https://image.tmdb.org/t/p/w200' + actor.profile_path : 'https://via.placeholder.com/50'" alt="avatar" />
-                    <div class="actor-name">{{ actor.name }}</div>
-                </div>
-            </ng-container>
+          <ng-container *ngFor="let actor of movieDetails.credits.slice(0, 4)">
+            <div class="actor-container" [routerLink]="['/actor', actor.credit.idTmdb]">
+              <img [src]="actor.credit.profilePath ? 'https://image.tmdb.org/t/p/w200' + actor.credit.profilePath : 'https://via.placeholder.com/50'" alt="avatar" />
+              <div class="actor-name">{{ actor.credit.name }}</div>
+            </div>
+          </ng-container>
         </div>
-    </div>
-      <div class="synopsis-section" >
+      </div>
+      <div class="synopsis-section">
         <h3 style="color: goldenrod !important;">SYNOPSIS</h3>
-        <p style="color: whitesmoke !important;">
-            {{getMovieDetailResult.overview}}
-        </p>
+        <p style="color: whitesmoke !important;">{{ movieDetails.overview }}</p>
       </div>
     </div>
   </div>
- 
-      <div class="trailer">
-        <h2 class="text-center py-3 fw-bold" style="color: goldenrod !important;">Watch the Trailer</h2>
-        <div class="py-2">
-          <iframe class="trailer-iframe" width="900" height="600" [src]="getSafeUrl(getTrailerUrl(getMovieVideoResult))" title="YouTube video player" frameborder="0" rel="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      </div>
 
-      <div class="relatedMovies px-5 my-4">
-        <h5 class="fw-bold fs-3" style="color: goldenrod !important;">Related Movies</h5>
-        <div class="rowposter mt-3 p-2">
-          <ng-container *ngFor="let t of relatedMovies">
-            <img src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}" class="rowimg largeposter" alt="..."
-              [routerLink]="['/movie',t.id]">
-          </ng-container>
-    
-        </div>
-    
-      </div>
-      
+  <div class="trailer">
+    <h2 class="text-center py-3 fw-bold" style="color: goldenrod !important;">Watch the Trailer</h2>
+    <div class="py-2">
+      <iframe class="trailer-iframe" width="900" height="600" [src]="getTrailerUrl(movieDetails.videos[0]?.key)" title="YouTube video player" frameborder="0" rel="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="relatedMovies px-5 my-4">
+    <h5 class="fw-bold fs-3" style="color: goldenrod !important;">Related Movies</h5>
+    <div class="rowposter mt-3 p-2">
+      <ng-container *ngFor="let t of relatedMovies">
+        <img src="https://image.tmdb.org/t/p/original/{{ t.posterPath }}" class="rowimg largeposter" alt="..." [routerLink]="['/movie', t.idTmdb]">
+      </ng-container>
+    </div>
+  </div>
 </div>
+
     
 

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiResponse } from '../models/api-response';
+import { Media } from '../models/media';
+import { Page } from '../models/pageable';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,12 +14,21 @@ export class MovieApiServiceService {
   baseurl = "https://api.themoviedb.org/3";
   apikey = "08cc33bd5ae3a747598ce2ad84376e66";
 
+  private apiServerUrl = "http://localhost:8080/api/v1.0.0/media";
 
+  public getMedia(typeMedia: string, searchTerm: string='', numPage: number=0, numSize: number=30): Observable<ApiResponse<Page<Media>>>{
+    return this.http.get<ApiResponse<Page<Media>>>(`${this.apiServerUrl}?typeMedia=${typeMedia}&searchTerm=${searchTerm}&numPage=${numPage}&numSize=${numSize}`);
+  }
+
+  public getDetailsMedia(shortLink: string): Observable<ApiResponse<Media>>{
+    return this.http.get<ApiResponse<Media>>(`${this.apiServerUrl}/${shortLink}`);
+  }
   //bannerapidata
 
   bannerApiData(): Observable<any> {
-    return this.http.get(`${this.baseurl}/trending/all/week?api_key=${this.apikey}`);
+    return this.http.get(`${this.apiServerUrl}/trending-korean-movies`);
   }
+  
 
   getRelatedMoviesByGenre(genreId: number): Observable<any> {
     return this.http.get(`${this.baseurl}/discover/movie?api_key=${this.apikey}&with_genres=${genreId}`);

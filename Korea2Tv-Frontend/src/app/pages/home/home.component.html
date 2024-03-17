@@ -1,32 +1,30 @@
 <!-- banner start  -->
+<!-- banner start -->
 <div class="contain-fluid">
   <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active position-relative" data-bs-interval="10000" *ngFor="let b of bannerResult;let i=index"
-      [ngClass]="{active:i===1}"
-        >
-        <div class="position-absolute w-100 top-0 left-0" [style.background-image]="'url(https://image.tmdb.org/t/p/original/' + b.backdrop_path + ')'" style="background-position: center; background-repeat: no-repeat;background-size: cover;height: 700px; z-index: -20; filter: blur(10px);"></div>
-        <!-- <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="position-absolute w-100 z-n1" alt="..."> -->
-        <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="d-block" style="width: 90%; height: 600px; margin:auto; margin-top: 45px;" alt="...">
-        <div class="position-absolute d-flex flex-column text-white justify-content-center" style="top: 45px; left: 5%; width: 90%; height: 650px;  background: linear-gradient(to right, rgba(40, 40, 60, 0.555) 0%,rgba(40,0,60,0) 90%); padding: 10em; gap: 1em;">
-          <h2 style="font-weight: bold; text-transform: capitalize;">{{b.original_title || b.original_name}}</h2>
+        [ngClass]="{ active: i === 0 }">
+        <div class="position-absolute w-100 top-0 left-0"
+          [style.background-image]="'url(https://image.tmdb.org/t/p/original/' + b.backDropPath + ')'"
+          style="background-position: center; background-repeat: no-repeat; background-size: cover; height: 700px; z-index: -20; filter: blur(10px);">
+        </div>
+        <img src="https://image.tmdb.org/t/p/original/{{ b.backDropPath }}" class="d-block"
+          style="width: 90%; height: 600px; margin: auto; margin-top: 45px;" alt="...">
+        <div class="position-absolute d-flex flex-column text-white justify-content-center"
+          style="top: 45px; left: 5%; width: 90%; height: 650px; background: linear-gradient(to right, rgba(40, 40, 60, 0.555) 0%, rgba(40,0,60,0) 90%); padding: 10em; gap: 1em;">
+          <h2 style="font-weight: bold; text-transform: capitalize;">{{ b.title}} - {{ b.originalTitle }}</h2>
           <div class="d-flex align-items-center" style="gap: 2em;">
-            
-            <p class="d-flex flex-column" style="gap: 1em;"><span class="rounded" style="padding: 4px; background-color: darkred; ">{{b.media_type}}</span></p>
-            <h3 class="pb-3">{{b.vote_average}}</h3>
+            <p class="d-flex flex-column" style="gap: 1em;">
+              <span class="rounded" style="padding: 4px; background-color: darkred;">{{ b.typeMedia }}</span>
+            </p>
+            <h3 class="pb-3">{{ b.voteAverage }}</h3>
           </div>
-          <p style="max-width: 70ch;">{{b.overview}}</p>
-          <button class="watch-trailer-btn" [routerLink]="['/movie',b.id]"
-          style="
-            background-color: rgba(0, 0, 0, 0.356);
-            color: white;
-            border: 1px solid white;
-            width: max-content;
-            padding: 10px 20px;
-            border-radius: 6px;
-          ">
-          Watch Trailer
-        </button>
+          <p style="max-width: 70ch;">{{ b.overview }}</p>
+          <button class="watch-trailer-btn" [routerLink]="['/movie', b.idTmdb]"
+            style="background-color: rgba(0, 0, 0, 0.356); color: white; border: 1px solid white; width: max-content; padding: 10px 20px; border-radius: 6px;">
+            Watch Trailer
+          </button>
         </div>
       </div>
     </div>
@@ -41,22 +39,38 @@
   </div>
 </div>
 
+
 <div class="contain mt-3 mb-5 p-4">
 
-  <!-- trending movies  -->
-  <div class="row">
-    <h5 class="text-white">Trending Movies</h5>
-    <div class="rowposter mt-3 p-2">
-      <ng-container *ngFor="let t of trendingMovieResult">
-        <img src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}" class="rowimg largeposter" alt="..."
-          [routerLink]="['/movie',t.id]">
+  <ng-container *ngIf="(mediaState$ | async) as state">
+    <ng-container [ngSwitch]="state.appState">
+      <ng-container *ngSwitchCase="'app_loaded'">
+        <!-- Check if the loaded data is for Korean movies -->
+        <div *ngIf="state.appData && state.appData.result && state.appData.result.page && state.appData.result.page.content" class="row mt-4">
+          <h5 class="text-white">Korean Movies</h5>
+          <div class="rowposter mt-3 p-2">
+            <!-- Iterate over the list of Korean movies -->
+            <ng-container *ngFor="let item of state.appData.result.page.content">
+              <img *ngIf="item.posterPath" src="https://image.tmdb.org/t/p/original/{{ item.posterPath }}" class="rowimg largeposter" alt="..."
+                [routerLink]="['/movie', item.id]">
+            </ng-container>
+          </div>
+        </div>
       </ng-container>
-
-    </div>
-
-  </div>
+    </ng-container>
+  </ng-container>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
  
-  <div class="row mt-4">
+  <!-- <div class="row mt-4">
     <h5 class="text-white">Action Movies</h5>
     <div class="rowposter mt-3 p-2">
       <ng-container *ngFor="let a of actionMovieResult">
@@ -66,11 +80,11 @@
 
     </div>
 
-  </div>
+  </div> -->
 
   <!-- adventure movies  -->
    
-  <div class="row mt-4">
+  <!-- <div class="row mt-4">
     <h5 class="text-white">adventure Movies</h5>
     <div class="rowposter mt-3 p-2">
       <ng-container *ngFor="let a of adventureMovieResult">
@@ -144,7 +158,7 @@
 
     </div>
 
-  </div> -->
+  </div>  -->
 
 </div>
 

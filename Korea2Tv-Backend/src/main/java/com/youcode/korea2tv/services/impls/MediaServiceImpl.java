@@ -44,6 +44,12 @@ public class MediaServiceImpl implements MediaService {
         return trendingMovies;
     }
 
+    @Override
+    public List<Media> getRelatedMoviesByGenre(Long genreId) {
+        return mediaRepository.findByGenresId(genreId); // Assuming you have a method findByGenreId in the repository
+
+    }
+
 
     @Override
     public Boolean checkMediaIsFounded(Media media) {

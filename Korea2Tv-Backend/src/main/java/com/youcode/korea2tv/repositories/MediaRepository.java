@@ -32,4 +32,6 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 
     @Query("SELECT m FROM Media m WHERE m.releaseDate >= :cutoffDate ORDER BY m.popularity DESC")
     List<Media> findTrendingMovies(@Param("cutoffDate") LocalDate cutoffDate);
+
+    List<Media> findByGenresId(Long genreId);
 }

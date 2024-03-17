@@ -15,7 +15,11 @@ public interface MediaService {
 
     public List<Media> getTrendingKoreanMovies();
 
+    List<Media> getRelatedMoviesByGenre(Long genreId);
+
     Boolean checkMediaIsFounded(Media media);
+
+
     Media saveMedia(Media media);
     Media updateMedia(Long id, Media media);
     Media deleteMedia(Long id);

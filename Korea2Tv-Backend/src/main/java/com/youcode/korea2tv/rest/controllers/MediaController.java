@@ -85,5 +85,19 @@ public class MediaController {
                 .build());
     }
 
+    @GetMapping("/related-movies-by-genre/{genreId}")
+    public ResponseEntity<Response<Object>> getRelatedMoviesByGenre(@PathVariable Long genreId) {
+        List<Media> relatedMoviesByGenre = mediaService.getRelatedMoviesByGenre(genreId);
+        List<MovieResDto> relatedMoviesByGenreDtos = relatedMoviesByGenre.stream()
+                .map(movieMapper::mapToDto) // Map Media objects to MovieResDto objects
+                .toList();
+        Map<String, List<MovieResDto>> result = new HashMap<>();
+        result.put("relatedMoviesByGenre", relatedMoviesByGenreDtos);
+        return ResponseEntity.ok(Response.builder()
+                .message("Success")
+                .result(result)
+                .build());
+    }
+
 
 }

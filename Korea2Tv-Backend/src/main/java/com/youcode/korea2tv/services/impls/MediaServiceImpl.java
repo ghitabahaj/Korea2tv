@@ -10,6 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +34,14 @@ public class MediaServiceImpl implements MediaService {
     public Media findMediaByIdTmdb(Long idTmdb) {
         return mediaRepository.findMediaByIdTmdb(idTmdb)
                 .orElseThrow(() -> new NotFoundMediaException("Not this media: "+idTmdb));
+    }
+
+    @Override
+    public List<Media> getTrendingKoreanMovies() {
+        LocalDateTime cutoffDateTime = LocalDateTime.now().minusDays(60); // Example cutoff date and time
+        LocalDate cutoffDate = cutoffDateTime.toLocalDate(); // Convert LocalDateTime to LocalDate
+        List<Media> trendingMovies = mediaRepository.findTrendingMovies(cutoffDate);
+        return trendingMovies;
     }
 
 

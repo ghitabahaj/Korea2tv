@@ -1,5 +1,6 @@
 package com.youcode.korea2tv.rest.controllers;
 
+import com.youcode.korea2tv.dtos.response.media.DetailsMediaResDto;
 import com.youcode.korea2tv.models.entity.Media;
 import com.youcode.korea2tv.services.MediaService;
 
@@ -69,4 +70,20 @@ public class MediaController {
                 .result(mediaMapper.mapToDto(media))
                 .build());
     }
+
+    @GetMapping("/trending-korean-movies")
+    public ResponseEntity<Response<Object>> getTrendingKoreanMovies() {
+        List<Media> trendingKoreanMovies = mediaService.getTrendingKoreanMovies();
+        List<MovieResDto> trendingKoreanMovieDtos = trendingKoreanMovies.stream()
+                .map(movieMapper::mapToDto) // Map Media objects to MovieResDto objects
+                .toList();
+        Map<String, List<MovieResDto>> result = new HashMap<>();
+        result.put("trendingKoreanMovies", trendingKoreanMovieDtos);
+        return ResponseEntity.ok(Response.builder()
+                .message("Success")
+                .result(result)
+                .build());
+    }
+
+
 }

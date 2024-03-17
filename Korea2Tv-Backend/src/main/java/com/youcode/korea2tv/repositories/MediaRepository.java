@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,6 +26,10 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
             @Param("typeMedia") String typeMedia,
             Pageable pageable);
     Optional<Media> findMediaByOriginalTitleAndReleaseDate(String originalTitle, LocalDate releaseDate);
+
     Optional<Media> findMediaByShortLink(String shortLink);
     Optional<Media> findMediaByIdTmdb(Long idTmdb);
+
+    @Query("SELECT m FROM Media m WHERE m.releaseDate >= :cutoffDate ORDER BY m.popularity DESC")
+    List<Media> findTrendingMovies(@Param("cutoffDate") LocalDate cutoffDate);
 }

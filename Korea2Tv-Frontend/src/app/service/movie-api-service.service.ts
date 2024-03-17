@@ -31,9 +31,9 @@ export class MovieApiServiceService {
   
 
   getRelatedMoviesByGenre(genreId: number): Observable<any> {
-    return this.http.get(`${this.baseurl}/discover/movie?api_key=${this.apikey}&with_genres=${genreId}`);
+    return this.http.get(`${this.apiServerUrl}/related-movies-by-genre/${genreId}`);
   }
-
+  
   // trendingmovieapidata 
   trendingMovieApiData(): Observable<any> {
     return this.http.get(`${this.baseurl}/trending/movie/day?api_key=${this.apikey}`);

@@ -12,6 +12,7 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./movie-details.component.css']
 })
 export class MovieDetailsComponent implements OnInit {
+  getMovieVideoResult: any;
 
   
   constructor(private service: MovieApiServiceService,
@@ -37,15 +38,27 @@ generateStarsArray(rating: number): number[] {
 }
 
 getMovieDetails(id: any): void {
-this.service.getDetailsMedia(id).subscribe((result) => {
-console.log(result, 'getmoviedetails#');
-this.movieDetails = result.result;
-// Update meta tags
-this.updateMetaTags();
-// Fetch related movies
-this.fetchRelatedMovies();
-});
+  this.service.getDetailsMedia(id).subscribe((result) => {
+    console.log(result, 'getmoviedetails#');
+    this.movieDetails = result.result;
+    // Update meta tags
+    this.updateMetaTags();
+    // Fetch related movies
+    this.fetchRelatedMovies();
+    
+    // Check if videos are available
+    if (this.movieDetails.videos && this.movieDetails.videos.length > 0) {
+      // Find the trailer video
+      const trailerVideo = this.movieDetails.videos.find((video: any) => video._type === 'Trailer');
+      if (trailerVideo) {
+        // Extract the trailer key
+        this.getMovieVideoResult = trailerVideo._key;
+        console.log(this.getMovieVideoResult, 'getMovieVideoResult#');
+      }
+    }
+  });
 }
+
 
 updateMetaTags(): void {
 if (this.movieDetails) {
@@ -60,20 +73,33 @@ this.meta.updateTag({ property: 'og:description', content: this.movieDetails.ove
 this.meta.updateTag({ property: 'og:image', content: `https://image.tmdb.org/t/p/original/${this.movieDetails.backDropPath}` });
 }
 }
-
 fetchRelatedMovies(): void {
-if (this.movieDetails && this.movieDetails.genres) {
-const genreIds = this.movieDetails.genres.map((genre: any) => genre.id);
-console.log(genreIds, 'genreIds#');
-this.service.getRelatedMoviesByGenre(genreIds).subscribe((result) => {
-console.log(result, 'relatedMovies#');
-this.relatedMovies = result.result;
-});
+  if (this.movieDetails && this.movieDetails.genres) {
+    const relatedMoviesArray: any[] = []; // Initialize an empty array to store related movies
+
+    this.movieDetails.genres.forEach((genre: any) => {
+      if (genre.idTmdb) {
+        this.service.getRelatedMoviesByGenre(genre.idTmdb).subscribe((result) => {
+          console.log(result, 'relatedMovies#');
+          // Assuming result contains related movies for the current genre
+          // Push the related movies into the array
+          relatedMoviesArray.push(...result.result.relatedMoviesByGenre);
+          // Assign the accumulated related movies to this.relatedMovies
+          this.relatedMovies = relatedMoviesArray;
+        });
+      }
+    });
+  }
 }
-}
+
+
 
 getSafeImageUrl(path: string): SafeResourceUrl {
 return this.sanitizer.bypassSecurityTrustResourceUrl(`https://image.tmdb.org/t/p/original/${path}`);
+}
+
+getSafeUrl(url: string): SafeResourceUrl {
+  return this.sanitizer.bypassSecurityTrustResourceUrl(url);
 }
 
 getTrailerUrl(videoKey: string): string {

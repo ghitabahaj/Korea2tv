@@ -21,7 +21,7 @@
             <h3 class="pb-3">{{ b.voteAverage }}</h3>
           </div>
           <p style="max-width: 70ch;">{{ b.overview }}</p>
-          <button class="watch-trailer-btn" [routerLink]="['/movie', b.idTmdb]"
+          <button class="watch-trailer-btn" [routerLink]="['/movie', b.shortLink]"
             style="background-color: rgba(0, 0, 0, 0.356); color: white; border: 1px solid white; width: max-content; padding: 10px 20px; border-radius: 6px;">
             Watch Trailer
           </button>
@@ -52,7 +52,7 @@
             <!-- Iterate over the list of Korean movies -->
             <ng-container *ngFor="let item of state.appData.result.page.content">
               <img *ngIf="item.posterPath" src="https://image.tmdb.org/t/p/original/{{ item.posterPath }}" class="rowimg largeposter" alt="..."
-                [routerLink]="['/movie', item.id]">
+                [routerLink]="['/movie', item.shortLink]">
             </ng-container>
           </div>
         </div>

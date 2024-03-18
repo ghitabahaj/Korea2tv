@@ -5,12 +5,14 @@ import { MovieDetailsComponent } from './pages/movie-details/movie-details.compo
 import { SearchComponent } from './pages/search/search.component';
 import { SigninComponent } from './pages/auth/signin/signin.component';
 import { ActorProfileComponent } from './pages/actor-profile/actor-profile.component';
+import { StreamingPageComponent } from './pages/stream-movie/streaming-page/streaming-page.component';
 
 const routes: Routes = [
-  {path:'',component:HomeComponent},
-  {path:'search',component:SearchComponent},
-  {path:'movie/:id',component:MovieDetailsComponent},
-  {path:'actor/:id',component:ActorProfileComponent},
+  { path: '', component: HomeComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'movie/:id', component: MovieDetailsComponent },
+  { path: 'actor/:id', component: ActorProfileComponent },
+  { path: 'streaming/:movieId', component:StreamingPageComponent  }
 ];
 
 @NgModule({

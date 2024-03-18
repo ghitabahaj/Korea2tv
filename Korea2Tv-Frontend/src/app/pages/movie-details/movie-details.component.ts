@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieApiServiceService } from 'src/app/service/movie-api-service.service';
 import { Title,Meta } from '@angular/platform-browser';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -17,6 +16,7 @@ export class MovieDetailsComponent implements OnInit {
   
   constructor(private service: MovieApiServiceService,
     private router: ActivatedRoute,
+    private route: Router,
     private title: Title,
     private meta: Meta,
     private sanitizer: DomSanitizer) { }
@@ -55,6 +55,11 @@ getMovieDetails(id: any): void {
         this.getMovieVideoResult = trailerVideo._key;
         console.log(this.getMovieVideoResult, 'getMovieVideoResult#');
       }
+      if (!trailerVideo) {
+        const teaserVideo = this.movieDetails.videos.find((video: any) => video._type.includes('Teaser'));
+        this.getMovieVideoResult = teaserVideo._key;
+        console.log(this.getMovieVideoResult, 'getMovieVideoResult#');
+    }
     }
   });
 }
@@ -108,4 +113,7 @@ const baseUrl = 'https://www.youtube.com/embed/';
 return `${baseUrl}${videoKey}`;
 }
 
+navigateToStreamingPage(movieId: number) {
+  this.route.navigate(['/streaming/' + movieId], { relativeTo: this.router });
+}
 }

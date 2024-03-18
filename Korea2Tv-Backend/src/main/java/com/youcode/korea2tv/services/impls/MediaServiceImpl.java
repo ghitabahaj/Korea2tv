@@ -38,7 +38,7 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public List<Media> getTrendingKoreanMovies() {
-        LocalDateTime cutoffDateTime = LocalDateTime.now().minusDays(60); // Example cutoff date and time
+        LocalDateTime cutoffDateTime = LocalDateTime.now().minusDays(120); // Example cutoff date and time
         LocalDate cutoffDate = cutoffDateTime.toLocalDate(); // Convert LocalDateTime to LocalDate
         List<Media> trendingMovies = mediaRepository.findTrendingMovies(cutoffDate);
         return trendingMovies;

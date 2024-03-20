@@ -1,6 +1,5 @@
 package com.youcode.korea2tv.rest.controllers;
 
-import com.youcode.korea2tv.dtos.response.media.DetailsMediaResDto;
 import com.youcode.korea2tv.models.entity.Media;
 import com.youcode.korea2tv.services.MediaService;
 
@@ -97,5 +96,16 @@ public class MediaController {
                 .build());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Response<Object>> searchMediaByName(@RequestParam String name) {
+        List<Media> foundMedia = mediaService.searchMediaByName(name);
+        List<MovieResDto> movieResDtos = foundMedia.stream()
+                .map(movieMapper::mapToDto)
+                .toList();
+        return ResponseEntity.ok(Response.builder()
+                .message("Success")
+                .result(movieResDtos)
+                .build());
+    }
 
 }

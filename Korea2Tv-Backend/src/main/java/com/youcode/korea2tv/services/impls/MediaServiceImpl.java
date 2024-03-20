@@ -94,4 +94,13 @@ public class MediaServiceImpl implements MediaService {
         return null;
     }
 
+    @Override
+    public List<Media> searchMediaByName(String name) {
+        List<Media> mediaList = mediaRepository.findByOriginalTitle(name);
+        if (mediaList.isEmpty()) {
+            throw new NotFoundException("No media found with the name: " + name);
+        }
+        return mediaList;
+    }
+
 }

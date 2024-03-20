@@ -31,4 +31,5 @@ public interface MediaService {
     Media updateMedia(Long id, Media media);
     Media deleteMedia(Long id);
 
+    List<Media> searchMediaByName(String name);
 }

@@ -43,4 +43,5 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     List<Media> findTrendingMovies(@Param("cutoffDate") LocalDate cutoffDate);
 
     List<Media> findByGenresId(Long genreId);
+    List<Media> findByOriginalTitle(String name);
 }

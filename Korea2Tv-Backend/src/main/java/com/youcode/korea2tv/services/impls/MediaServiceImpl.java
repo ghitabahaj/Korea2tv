@@ -1,5 +1,6 @@
 package  com.youcode.korea2tv.services.impls;
 
+import com.youcode.korea2tv.exception.custom.NotFoundException;
 import  com.youcode.korea2tv.exception.custom.NotFoundMediaException;
 import  com.youcode.korea2tv.models.entity.Media;
 import   com.youcode.korea2tv.repositories.MediaRepository;
@@ -56,19 +57,21 @@ public class MediaServiceImpl implements MediaService {
         Optional<Media> checkMedia = mediaRepository.findMediaByOriginalTitleAndReleaseDate(
                 media.getOriginalTitle(),
                 media.getReleaseDate());
-        if(checkMedia.isPresent()){
-            throw new IllegalArgumentException("This media already exist!");
+        if(checkMedia.isPresent()) {
+            throw new IllegalArgumentException("This media already exists!");
+        } else {
+            throw new NotFoundException("Media not found!"); // Throw NotFoundException if media not found
         }
-        return true;
     }
 
     @Override
     public Media saveMedia(Media media) {
-        Media saveMedia = mediaRepository.save(media);
         if(Boolean.TRUE.equals(checkMediaIsFounded(media))){
+            // No need to save again if media is already found
+            return media;
+        } else {
             return mediaRepository.save(media);
         }
-        return saveMedia;
     }
 
     @Override

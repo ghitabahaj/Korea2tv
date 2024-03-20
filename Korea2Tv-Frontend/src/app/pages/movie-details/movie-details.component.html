@@ -77,8 +77,8 @@
   <div class="relatedMovies px-5 my-4">
     <h5 class="fw-bold fs-3" style="color: goldenrod !important;">Related Movies</h5>
     <div class="rowposter mt-3 p-2">
-      <ng-container *ngFor="let t of relatedMovies">
-        <img src="https://image.tmdb.org/t/p/original/{{ t.posterPath }}" class="rowimg largeposter" alt="..." [routerLink]="['/movie', t.shortLink]">
+      <ng-container *ngFor="let t of movieDetails.relatedMovies">
+        <img src="https://image.tmdb.org/t/p/original/{{ t.posterPath }} " class="rowimg largeposter" alt="..."  (click)="reloadCurrentRoute('/movie/' + t.shortLink)">
       </ng-container>
     </div>
   </div>

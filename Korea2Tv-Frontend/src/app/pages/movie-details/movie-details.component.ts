@@ -116,4 +116,14 @@ return `${baseUrl}${videoKey}`;
 navigateToStreamingPage(movieId: number) {
   this.route.navigate(['/streaming/' + movieId], { relativeTo: this.router });
 }
+
+reloadCurrentRoute(newUrl: string) {
+  // Get the current URL
+  const currentUrl = newUrl;
+
+  // Navigate to the current route
+  this.route.navigateByUrl('/').then(() => {
+    this.route.navigate([currentUrl] , { relativeTo: this.router });
+  });
+}
 }

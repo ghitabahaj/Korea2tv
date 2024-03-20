@@ -17,10 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/v1.0.0/media")
@@ -65,9 +62,10 @@ public class MediaController {
     @GetMapping("/{shortLink}")
     public ResponseEntity<Response<Object>> findMediaByShortLink(@PathVariable String shortLink){
         Media media = mediaService.findMediaByShortLink(shortLink);
+        Set<Media> recommended = mediaService.recommended(media.getCountries(), media.getGenres(), media.getProductions());
         return ResponseEntity.ok(Response.builder()
                 .message("Success")
-                .result(mediaMapper.mapToDto(media))
+                .result(mediaMapper.mapToDto(media, recommended))
                 .build());
     }
 

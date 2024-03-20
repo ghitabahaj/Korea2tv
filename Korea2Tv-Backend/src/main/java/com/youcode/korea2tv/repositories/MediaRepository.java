@@ -1,6 +1,9 @@
 package com.youcode.korea2tv.repositories;
 
+import com.youcode.korea2tv.models.entity.Country;
+import com.youcode.korea2tv.models.entity.Genre;
 import  com.youcode.korea2tv.models.entity.Media;
+import com.youcode.korea2tv.models.entity.Production;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface MediaRepository extends JpaRepository<Media, Long> {
@@ -26,6 +30,11 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
             @Param("typeMedia") String typeMedia,
             Pageable pageable);
     Optional<Media> findMediaByOriginalTitleAndReleaseDate(String originalTitle, LocalDate releaseDate);
+
+    Optional<Set<Media>> findMediaByCountriesInAndGenresInOrProductionsIn(Set<Country> countries,
+                                                                          Set<Genre> genres,
+                                                                          Set<Production> productions);
+
 
     Optional<Media> findMediaByShortLink(String shortLink);
     Optional<Media> findMediaByIdTmdb(Long idTmdb);

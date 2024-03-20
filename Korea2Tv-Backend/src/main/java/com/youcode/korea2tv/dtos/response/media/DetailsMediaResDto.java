@@ -45,4 +45,5 @@ public class DetailsMediaResDto {
     private Set<Watchlist> watchlists;
     private Set<MediaServerPlayResDto> serverPlays;
     private Set<Slider> sliders;
+    private Set<RelatedMoviesResDto> relatedMovies;
 }

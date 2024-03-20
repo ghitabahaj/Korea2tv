@@ -2,7 +2,10 @@ package  com.youcode.korea2tv.services.impls;
 
 import com.youcode.korea2tv.exception.custom.NotFoundException;
 import  com.youcode.korea2tv.exception.custom.NotFoundMediaException;
+import com.youcode.korea2tv.models.entity.Country;
+import com.youcode.korea2tv.models.entity.Genre;
 import  com.youcode.korea2tv.models.entity.Media;
+import com.youcode.korea2tv.models.entity.Production;
 import   com.youcode.korea2tv.repositories.MediaRepository;
 import   com.youcode.korea2tv.services.MediaService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -62,6 +66,12 @@ public class MediaServiceImpl implements MediaService {
         } else {
             throw new NotFoundException("Media not found!"); // Throw NotFoundException if media not found
         }
+    }
+
+    @Override
+    public Set<Media> recommended(Set<Country> countries, Set<Genre> genres, Set<Production> productions) {
+        return mediaRepository.findMediaByCountriesInAndGenresInOrProductionsIn(countries, genres, productions)
+                .orElseThrow(() -> new NotFoundMediaException("no media found"));
     }
 
     @Override

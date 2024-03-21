@@ -110,6 +110,16 @@ public class MediaController {
                 .build());
     }
 
+    @GetMapping("search/{idTmdb}")
+    public ResponseEntity<Response<Object>> findMediaByIdTmdb(@PathVariable Long idTmdb) {
+        Media media = mediaService.findMediaByIdTmdb(idTmdb);
+        Set<Media> recommended = mediaService.recommended(media.getCountries(), media.getGenres(), media.getProductions());
+        return ResponseEntity.ok(Response.builder()
+                .message("Success")
+                .result(mediaMapper.mapToDto(media, recommended))
+                .build());
+    }
+
 
     @GetMapping("/actor")
     public ResponseEntity<Response<Object>> getMediaByActor(@RequestParam("creditIdTmdb") String creditIdTmdb) {
@@ -126,5 +136,22 @@ public class MediaController {
                 .result(actorMediaDtos)
                 .build());
     }
+
+    @GetMapping("/searchMovies")
+    public ResponseEntity searchMovies(@RequestParam("query") String searchTerm) {
+        List<Media> searchMovies = mediaService.searchMovies(searchTerm);
+        if (!searchMovies.isEmpty()) {
+            return ResponseEntity.ok(Response.builder()
+                    .message("Success")
+                    .result(searchMovies)
+                    .build());
+        }else {
+            return ResponseEntity.ok(Response.builder()
+                    .message("No media found with the name: " + searchTerm)
+                    .result(searchMovies)
+                    .build());
+        }
+    }
+
 
 }

@@ -115,4 +115,10 @@ public class MediaServiceImpl implements MediaService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Media> searchMovies(String searchTerm) {
+        return mediaRepository.findByTitleContainingIgnoreCase(searchTerm);
+    }
+
+
 }

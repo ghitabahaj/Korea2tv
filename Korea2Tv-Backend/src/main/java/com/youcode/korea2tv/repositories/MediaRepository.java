@@ -42,6 +42,8 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     List<Media> findByGenresId(Long genreId);
     List<Media> findByOriginalTitle(String name);
 
+    List<Media> findByTitleContainingIgnoreCase(String searchTerm);
+
 
 
 }

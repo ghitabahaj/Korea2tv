@@ -1,9 +1,6 @@
 package com.youcode.korea2tv.services;
 
-import com.youcode.korea2tv.models.entity.Country;
-import com.youcode.korea2tv.models.entity.Genre;
-import  com.youcode.korea2tv.models.entity.Media;
-import com.youcode.korea2tv.models.entity.Production;
+import com.youcode.korea2tv.models.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,4 +31,8 @@ public interface MediaService {
     List<Media> searchMediaByName(String name);
 
     List<Media> getMediaByActor(String actorId);
+
+    List<Media> searchMovies(String searchTerm);
+
+
 }

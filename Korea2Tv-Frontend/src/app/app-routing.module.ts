@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'search', component: SearchComponent },
   { path: 'movie/:id', component: MovieDetailsComponent },
-  { path: 'actor/:id', component: ActorProfileComponent },
+  { path: 'actor/:id/:creditIdTmdb', component: ActorProfileComponent },
   { path: 'streaming/:movieId', component:StreamingPageComponent  }
 ];
 

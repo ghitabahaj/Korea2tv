@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "" # Empty password
+      MYSQL_DATABASE: korea2tv
+    ports:
+      - "3306:3306"
+    networks:
+      - korea2tv-network
+    restart: unless-stopped
+
+  spring-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/korea2tv
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "" # Empty password
+    networks:
+      - korea2tv-network
+    restart: unless-stopped
+
+  angular-app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - spring-app
+    networks:
+      - korea2tv-network
+    restart: unless-stopped
+
+networks:
+  korea2tv-network:
+    driver: bridge

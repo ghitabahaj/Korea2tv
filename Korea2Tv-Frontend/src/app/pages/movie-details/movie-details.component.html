@@ -41,7 +41,7 @@
         <h3 style="color: goldenrod !important;">THE CAST</h3>
         <div class="casts">
           <ng-container *ngFor="let actor of movieDetails.credits.slice(0, 4)">
-            <div class="actor-container" [routerLink]="['/actor', actor.credit.idTmdb]">
+            <div class="actor-container" [routerLink]="['/actor', actor.credit.idTmdb , actor._creditIdTmdb]">
               <img [src]="actor.credit.profilePath ? 'https://image.tmdb.org/t/p/w200' + actor.credit.profilePath : 'https://via.placeholder.com/50'" alt="avatar" />
               <div class="actor-name">{{ actor.credit.name }}</div>
             </div>

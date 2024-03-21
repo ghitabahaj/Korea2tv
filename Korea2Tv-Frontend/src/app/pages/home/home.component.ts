@@ -85,64 +85,7 @@ export class HomeComponent implements OnInit {
     this.service.trendingMovieApiData().subscribe((result) => {
       console.log(result, 'trendingresult#');
       this.trendingMovieResult = result.results;
-      // this.trendingMovieResult
     });
   }
-
-
-  // // action 
-  // actionMovie() {
-  //   this.service.fetchActionMovies().subscribe((result) => {
-  //     this.actionMovieResult = result.results;
-  //   });
-  // }
-
-
-
-
-  // // adventure 
-  // adventureMovie() {
-  //   this.service.fetchAdventureMovies().subscribe((result) => {
-  //     this.adventureMovieResult = result.results;
-  //   });
-  // }
-
-
-  // // animation 
-  // animationMovie() {
-  //   this.service.fetchAnimationMovies().subscribe((result) => {
-  //     this.animationMovieResult = result.results;
-  //   });
-  // }
-
-
-  // // comedy 
-  // comedyMovie() {
-  //   this.service.fetchComedyMovies().subscribe((result) => {
-  //     this.comedyMovieResult = result.results;
-  //   });
-  // }
-
-  // // documentary 
-  // documentaryMovie() {
-  //   this.service.fetchDocumentaryMovies().subscribe((result) => {
-  //     this.documentaryMovieResult = result.results;
-  //   });
-  // }
-
-
-  // // science-fiction 
-  // sciencefictionMovie() {
-  //   this.service.fetchScienceFictionMovies().subscribe((result) => {
-  //     this.sciencefictionMovieResult = result.results;
-  //   });
-  // }
-
-  // // thriller
-  // thrillerMovie() {
-  //   this.service.fetchThrillerMovies().subscribe((result) => {
-  //     this.thrillerMovieResult = result.results;
-  //   });
-  // }
 
 }

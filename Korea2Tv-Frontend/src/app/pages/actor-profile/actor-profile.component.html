@@ -1,30 +1,36 @@
 <div class="">
-    <div class="actor-details">
-      <div class="poster-wrapper">
-        <div class="poster">
-          <img src="https://image.tmdb.org/t/p/original/{{ actorDetails.profile_path }}" alt="poster" />
-        </div>
+  <div class="actor-details">
+    <div class="poster-wrapper">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/{{ actorDetails.profile_path }}" alt="poster" />
       </div>
-      <!-- end poster-wrapper -->
-      <div class="actor-info">
-        <div class="header-section">
-          <h2 style="color: whitesmoke !important;">{{ actorDetails.name }}</h2>
-          <p style="color: goldenrod !important;">Gender: {{ actorDetails.gender }}</p>
-          <p style="color: goldenrod !important;">Popularity: {{ actorDetails.popularity }}</p>
-          <!-- Add more actor details as needed -->
-        </div>
-        <div class="movies-section">
-          <h3 style="color: goldenrod !important;">Movies</h3>
-          <div class="movies">
-            <ng-container *ngFor="let movie of actorMovies">
-              <div class="movie-container">
-                <img [src]="'https://image.tmdb.org/t/p/original/' + movie.poster_path" alt="poster" />
-                <div class="movie-title">{{ movie.title }}</div>
-              </div>
-            </ng-container>
-          </div>
-        </div>
+    </div>
+    <!-- end poster-wrapper -->
+    <div class="actor-info">
+      <div class="header-section">
+        <h2 style="color: whitesmoke !important;">{{ actorDetails.name }}</h2>
+        <p style="color: goldenrod !important;">Gender: {{ actorDetails.gender }}</p>
+        <p style="color: goldenrod !important;">Popularity: {{ actorDetails.popularity }}</p>
+        <p style="color: goldenrod !important;">Birthday: {{ actorDetails.birthday }}</p>
+        <p style="color: goldenrod !important;">Place of Birth: {{ actorDetails.place_of_birth }}</p>
+        <p style="color: goldenrod !important;">Biography: {{ actorDetails.biography }}</p>
+        <p style="color: goldenrod !important;">Also known as:</p>
+        <ul>
+          <li *ngFor="let alias of actorDetails.also_known_as" style="color: goldenrod !important;">{{ alias }}</li>
+        </ul>
+    
       </div>
     </div>
   </div>
-  
+
+  <div class=" px-5 my-4">
+    <h5 class="fw-bold fs-3" style="color: goldenrod !important;">Actor Movies</h5>
+    <div class="rowposter mt-3 p-2">
+      <ng-container *ngFor="let t of mediaList">
+        <img src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}" class="rowimg largeposter" alt="..."
+          (click)="reloadCurrentRoute('/movie/' + t.shortLink)">
+      </ng-container>
+    </div>
+  </div>
+</div>
+

@@ -19,3 +19,16 @@ h5
 {
     color: #ffffff;
 }
+
+.movieSearch:hover {
+    background-color: #2c2b2b;
+    cursor: pointer;
+  }
+
+  .searchBar{
+    left: 40%;
+  }
+  
+  .searchElement {
+    width: 400px;
+  }

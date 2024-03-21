@@ -13,6 +13,7 @@ import { ForgetPasswordComponent } from './pages/auth/forget-password/forget-pas
 import { SafePipe } from './pages/pipe/safe.pipe';
 import { ActorProfileComponent } from './pages/actor-profile/actor-profile.component';
 import { StreamingPageComponent } from './pages/stream-movie/streaming-page/streaming-page.component';
+import { MovieDetailsActorComponent } from './pages/movie-details-actor/movie-details-actor.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { StreamingPageComponent } from './pages/stream-movie/streaming-page/stre
     ForgetPasswordComponent,
     SafePipe,
     ActorProfileComponent,
-    StreamingPageComponent
+    StreamingPageComponent,
+    MovieDetailsActorComponent
   ],
   imports: [
     BrowserModule,

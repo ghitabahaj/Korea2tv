@@ -84,5 +84,29 @@ searchMovieApiData(name : string): Observable<any> {
   }
 
 
+  getMediaByIdTmdb(idTmdb: number): Observable<Media> {
+    return this.http.get<Media>(`${this.apiServerUrl}/search/${idTmdb}`).pipe(
+      catchError(error => {
+        // Handle errors here
+        console.error('Error fetching media by idTmdb:', error);
+        throw error; // Rethrow the error to propagate it to the component
+      })
+    );
+    
+  }
+
+  searchMediaByName(name: string): Observable<Media[]> {
+    return this.http.get<Media[]>(`${this.apiServerUrl}/search?name=${name}`).pipe(
+      catchError(error => {
+        console.error('Error searching media by name:', error);
+        throw error;
+      })
+    );
+  }
+
+
+  searchMovies(searchTerm: string): Observable<any> {
+    return this.http.get(`${this.apiServerUrl}/searchMovies?query=${searchTerm}`);
+  }
 
 }

@@ -1,4 +1,8 @@
 import { Component,HostListener } from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { debounceTime } from 'rxjs/operators';
+import { MovieApiServiceService } from './service/movie-api-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,18 +11,5 @@ import { Component,HostListener } from '@angular/core';
 })
 export class AppComponent {
 
-  // navbg:any;
-  // @HostListener('document:scroll') scrollover(){
-  //   console.log(document.body.scrollTop,'scrolllength#');
-    
-  //   if(document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)
-  //   {
-  //     this.navbg = {
-  //       'background-color':'#000000'
-  //     }
-  //   }else
-  //   {
-  //       this.navbg = {}
-  //   }
-  // }
+  
 }

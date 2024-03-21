@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieApiServiceService } from 'src/app/service/movie-api-service.service';
-import { Title,Meta } from '@angular/platform-browser';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
 
 @Component({
-  selector: 'app-movie-details',
-  templateUrl: './movie-details.component.html',
-  styleUrls: ['./movie-details.component.css']
+  selector: 'app-movie-details-actor',
+  templateUrl: './movie-details-actor.component.html',
+  styleUrls: ['./movie-details-actor.component.css']
 })
-export class MovieDetailsComponent implements OnInit {
+export class MovieDetailsActorComponent implements OnInit {
+
   getMovieVideoResult: any;
   id!: string;
   idTmdb!: string;
@@ -27,17 +26,11 @@ movieDetails: any;
 relatedMovies: any[] | undefined;
 
 ngOnInit(): void {
-const getParamId = this.router.snapshot.paramMap.get('id');
-const id = this.router.snapshot.params['id'];
+
 const idTmdb = this.router.snapshot.params['idtmdb'];
 
-if (id) {
-  this.getMovieDetails(id);
-} else if (idTmdb) {
-  this.getMediaByTmdbId(parseInt(idTmdb));
-} else {
-  console.error('No ID or TMDb ID provided');
-}
+  this.getMediaByTmdbId(idTmdb);
+
 
 }
 
@@ -49,32 +42,6 @@ generateStarsArray(rating: number): number[] {
   return Array(filledStars).fill(1).concat(Array(emptyStars).fill(0)); // Generate an array with filled and empty star values
 }
 
-getMovieDetails(id: any): void {
-  this.service.getDetailsMedia(id).subscribe((result) => {
-    console.log(result, 'getmoviedetails#');
-    this.movieDetails = result.result;
-    // Update meta tags
-    this.updateMetaTags();
-    // Fetch related movies
-    this.fetchRelatedMovies();
-    
-    // Check if videos are available
-    if (this.movieDetails.videos && this.movieDetails.videos.length > 0) {
-      // Find the trailer video
-      const trailerVideo = this.movieDetails.videos.find((video: any) => video._type === 'Trailer');
-      if (trailerVideo) {
-        // Extract the trailer key
-        this.getMovieVideoResult = trailerVideo._key;
-        console.log(this.getMovieVideoResult, 'getMovieVideoResult#');
-      }
-      if (!trailerVideo) {
-        const teaserVideo = this.movieDetails.videos.find((video: any) => video._type.includes('Teaser'));
-        this.getMovieVideoResult = teaserVideo._key;
-        console.log(this.getMovieVideoResult, 'getMovieVideoResult#');
-    }
-    }
-  });
-}
 
 getMediaByTmdbId(idTmdb: number): void {
   this.service.getMediaByIdTmdb(idTmdb).subscribe(

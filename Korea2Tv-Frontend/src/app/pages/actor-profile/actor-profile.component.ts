@@ -69,4 +69,17 @@ fetchMediaByCredit(): void {
   );
 }
 
+getMediaByTmdbId(idTmdb: number): void {
+  this.movieService.getMediaByIdTmdb(idTmdb).subscribe(
+    (media: any) => {
+      console.log('Media by TMDb ID:', media);
+      // Do whatever you want with the retrieved media
+    },
+    error => {
+      console.error('Error fetching media by TMDb ID:', error);
+      // Handle error if needed
+    }
+  );
+}
+
 }

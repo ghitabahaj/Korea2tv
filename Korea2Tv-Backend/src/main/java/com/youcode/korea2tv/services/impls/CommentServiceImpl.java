@@ -42,4 +42,10 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long id) {
         commentRepository.deleteById(id);
     }
+
+    @Override
+    public List<Comment> getAllCommentsByMediaId(Long mediaId) {
+        return commentRepository.findByMediaId(mediaId);
+
+    }
 }

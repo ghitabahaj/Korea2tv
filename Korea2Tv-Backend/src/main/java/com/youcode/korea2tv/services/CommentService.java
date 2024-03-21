@@ -10,4 +10,6 @@ public interface CommentService {
     Comment createComment(Comment comment);
     Comment updateComment(Long id, Comment updatedComment);
     void deleteComment(Long id);
+
+    List<Comment> getAllCommentsByMediaId(Long mediaId);
 }

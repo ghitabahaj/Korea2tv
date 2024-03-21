@@ -1,9 +1,6 @@
 package com.youcode.korea2tv.models.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +17,11 @@ public class Comment {
     private Long id;
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private AppUser user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "media_id")
+    private Media media;
 }

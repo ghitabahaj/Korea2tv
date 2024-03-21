@@ -1,5 +1,6 @@
 package com.youcode.korea2tv.rest.controllers;
 
+import com.youcode.korea2tv.dtos.response.media.DetailsMediaResDto;
 import com.youcode.korea2tv.models.entity.Media;
 import com.youcode.korea2tv.services.MediaService;
 
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1.0.0/media")
@@ -105,6 +107,23 @@ public class MediaController {
         return ResponseEntity.ok(Response.builder()
                 .message("Success")
                 .result(movieResDtos)
+                .build());
+    }
+
+
+    @GetMapping("/actor")
+    public ResponseEntity<Response<Object>> getMediaByActor(@RequestParam("creditIdTmdb") String creditIdTmdb) {
+        // Get media by actor ID
+        List<Media> actorMedia = mediaService.getMediaByActor(creditIdTmdb);
+
+        // Map to DTOs
+        List<DetailsMediaResDto> actorMediaDtos = actorMedia.stream()
+                .map(mediaMapper::mapToDto)
+                .collect(Collectors.toList());
+        // Build response
+        return ResponseEntity.ok(Response.builder()
+                .message("Success")
+                .result(actorMediaDtos)
                 .build());
     }
 

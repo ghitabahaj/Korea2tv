@@ -1,9 +1,6 @@
 package com.youcode.korea2tv.repositories;
 
-import com.youcode.korea2tv.models.entity.Country;
-import com.youcode.korea2tv.models.entity.Genre;
-import  com.youcode.korea2tv.models.entity.Media;
-import com.youcode.korea2tv.models.entity.Production;
+import com.youcode.korea2tv.models.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -44,4 +41,7 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 
     List<Media> findByGenresId(Long genreId);
     List<Media> findByOriginalTitle(String name);
+
+
+
 }

@@ -2,10 +2,8 @@ package  com.youcode.korea2tv.services.impls;
 
 import com.youcode.korea2tv.exception.custom.NotFoundException;
 import  com.youcode.korea2tv.exception.custom.NotFoundMediaException;
-import com.youcode.korea2tv.models.entity.Country;
-import com.youcode.korea2tv.models.entity.Genre;
-import  com.youcode.korea2tv.models.entity.Media;
-import com.youcode.korea2tv.models.entity.Production;
+import com.youcode.korea2tv.models.entity.*;
+import com.youcode.korea2tv.repositories.MediaCreditRepository;
 import   com.youcode.korea2tv.repositories.MediaRepository;
 import   com.youcode.korea2tv.services.MediaService;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +17,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class MediaServiceImpl implements MediaService {
     private final MediaRepository mediaRepository;
+    private final MediaCreditRepository mediaCreditRepository;
     public Page<Media> findAllMediaPageable(String typeMedia, String searchTerm, Pageable pageable) {
         return mediaRepository.findMediaByTypeMediaContaining(searchTerm, typeMedia, pageable)
                 .orElseThrow(() -> new NotFoundMediaException("Not found any media"));
@@ -101,6 +101,18 @@ public class MediaServiceImpl implements MediaService {
             throw new NotFoundException("No media found with the name: " + name);
         }
         return mediaList;
+    }
+
+    @Override
+    public List<Media> getMediaByActor(String actorId) {
+        // Retrieve all media credits associated with the actor
+        List<MediaCredit> actorMediaCredits = mediaCreditRepository.findBy_creditIdTmdb(actorId);
+
+        // Extract media from the retrieved media credits
+
+        return actorMediaCredits.stream()
+                .map(MediaCredit::getMedia)
+                .collect(Collectors.toList());
     }
 
 }

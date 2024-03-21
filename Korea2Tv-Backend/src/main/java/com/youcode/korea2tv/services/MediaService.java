@@ -32,4 +32,6 @@ public interface MediaService {
     Media deleteMedia(Long id);
 
     List<Media> searchMediaByName(String name);
+
+    List<Media> getMediaByActor(String actorId);
 }

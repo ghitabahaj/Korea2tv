@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MovieApiServiceService } from 'src/app/service/movie-api-service.service';
 import { Title,Meta } from '@angular/platform-browser';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CommentsService } from 'src/app/service/comments/comments.service';
+
 
 
 @Component({
@@ -14,12 +16,14 @@ export class MovieDetailsComponent implements OnInit {
   getMovieVideoResult: any;
   id!: string;
   idTmdb!: string;
-
+  movieComments!: Comment[];
+  newCommentContent: string = '';
   
   constructor(private service: MovieApiServiceService,
     private router: ActivatedRoute,
     private route: Router,
     private title: Title,
+    private commentService: CommentsService,
     private meta: Meta,
     private sanitizer: DomSanitizer) { }
 
@@ -27,18 +31,8 @@ movieDetails: any;
 relatedMovies: any[] | undefined;
 
 ngOnInit(): void {
-const getParamId = this.router.snapshot.paramMap.get('id');
-const id = this.router.snapshot.params['id'];
-const idTmdb = this.router.snapshot.params['idtmdb'];
-
-if (id) {
-  this.getMovieDetails(id);
-} else if (idTmdb) {
-  this.getMediaByTmdbId(parseInt(idTmdb));
-} else {
-  console.error('No ID or TMDb ID provided');
-}
-
+  const getParamId = this.router.snapshot.paramMap.get('id') ?? '';
+  this.getCommentsForMovie(getParamId);
 }
 
 
@@ -76,33 +70,6 @@ getMovieDetails(id: any): void {
   });
 }
 
-getMediaByTmdbId(idTmdb: number): void {
-  this.service.getMediaByIdTmdb(idTmdb).subscribe(
-    (result: any) => {
-      console.log(result, 'getmoviedetails#');
-      this.movieDetails = result.result;
-
-      // Check if videos are available
-      if (this.movieDetails.videos && this.movieDetails.videos.length > 0) {
-        // Find the trailer video
-        const trailerVideo = this.movieDetails.videos.find((video: any) => video._type === 'Trailer');
-        if (trailerVideo) {
-          // Extract the trailer key
-          this.getMovieVideoResult = trailerVideo._key;
-          console.log(this.getMovieVideoResult, 'getMovieVideoResult#');
-        } else {
-          const teaserVideo = this.movieDetails.videos.find((video: any) => video._type.includes('Teaser'));
-          this.getMovieVideoResult = teaserVideo._key;
-          console.log(this.getMovieVideoResult, 'getMovieVideoResult#');
-        }
-      }
-    },
-    ( error: any) => {
-      console.error('Error fetching movie details by TMDb ID:', error);
-      // Handle error if needed
-    }
-  );
-}
 
 updateMetaTags(): void {
 if (this.movieDetails) {
@@ -166,5 +133,19 @@ reloadCurrentRoute(newUrl: string) {
   this.route.navigateByUrl('/').then(() => {
     this.route.navigate([currentUrl] , { relativeTo: this.router });
   });
+}
+
+getCommentsForMovie(movieId: string): void {
+  this.commentService.getAllComments(movieId).subscribe((comments) => {
+    this.movieComments = comments;
+  });
+}
+
+addComment(): void {
+  if (this.newCommentContent.trim() === '') {
+    return;
+  }
+  
+
 }
 }

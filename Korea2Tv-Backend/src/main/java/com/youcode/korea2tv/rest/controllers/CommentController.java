@@ -24,16 +24,6 @@ public class CommentController {
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Comment>> getAllComments(@RequestParam(required = false) Long mediaId) {
-        List<Comment> comments;
-        if (mediaId != null) {
-            comments = commentService.getAllCommentsByMediaId(mediaId);
-        } else {
-            comments = commentService.getAllComments();
-        }
-        return new ResponseEntity<>(comments, HttpStatus.OK);
-    }
 
 
     @PutMapping("/{id}")

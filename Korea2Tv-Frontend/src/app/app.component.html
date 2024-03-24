@@ -1,85 +1,83 @@
-<nav class="navbar navbar-expand-lg sticky-top mb-5">
-  <div class="container-fluid">
-    <div class="flex items-center justify-center">
-      <a>
-        <img src="assets/icons/korea.png" alt="Korea" style="width: 50px; height: auto;">
-      </a>
-      <b class="text-xl pl-3 mt-5 font-bold text-white-700 dark:text-white"> KOREA2TV </b>
-    </div>
+<nav class="navbar navbar-expand-lg sticky-top px-5" style="backdrop-filter: blur(5px);">
+  <div class="d-flex align-items-center justify-content-between px-5" style="width: 100vw;">
+    <a class="navbar-brand" href="#">
+      <span class="ms-2">KOREA2TV</span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="">Home</a>
-        </li>
-        <app-search></app-search>
+    <div class="" style="width: max-content;" id="navbarNav">
+      <app-search></app-search>
 
-        <!-- Sign In Modal Trigger -->
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</a>
-        </li>
-        <!-- Sign Up Modal Trigger -->
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a>
-        </li>
-      </ul>
+
+    </div>
+
+    
+    <div class="btn-group ">
+      <button type="button" class="btn rounded-pill btn-outline-danger mx-2 text-white" data-bs-toggle="modal" data-bs-target="#registrationModal">register</button>
+      <button type="button" class="btn rounded-pill btn-outline-danger text-white" data-bs-toggle="modal" data-bs-target="#signInModal">sign in</button>
     </div>
   </div>
 </nav>
+
 <!-- Sign In Modal -->
 <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
-      <!-- Your sign in form fields go here -->
       <div class="modal-header">
         <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="signInEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="signInEmail" aria-describedby="emailHelp" required>
+            <label for="emailInput" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
-            <label for="signInPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="signInPassword" required>
+            <label for="passwordInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordInput">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Sign In</button>
+        <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-danger rounded-pill text-white">Sign In</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Sign Up Modal -->
-<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+
+
+
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">
-      <!-- Your sign up form fields go here -->
       <div class="modal-header">
-        <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="registrationModalLabel">Registration</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="signUpEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp" required>
+            <label for="emailInput" class="form-label">Use your email address</label>
+            <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
-            <label for="signUpPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="signUpPassword" required>
+            <label for="usernameInput" class="form-label">Username</label>
+            <input type="text" class="form-control" id="usernameInput" aria-describedby="usernameHelp">
+          </div>
+          <div class="mb-3">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordInput">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Sign Up</button>
+        <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-danger rounded-pill text-white">Register Now</button>
       </div>
     </div>
   </div>

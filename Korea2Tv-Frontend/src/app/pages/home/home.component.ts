@@ -22,26 +22,12 @@ export class HomeComponent implements OnInit {
   bannerResult: any = [];
   koreanMovieResult: Media[] = []; // New property for Korean movies
   typeMedia!: string;
-   trendingMovieResult: any = [];
-  // actionMovieResult: any = [];
-  // adventureMovieResult: any = [];
-  // animationMovieResult: any = [];
-  // comedyMovieResult: any = [];
-  // documentaryMovieResult: any = [];
-  // sciencefictionMovieResult: any = [];
-  // thrillerMovieResult: any = [];
+  trendingMovieResult: any = [];
 
   ngOnInit(): void {
     this.bannerData();
     this.trendingData();    
     this.getMedia("movie"); 
-    // this.actionMovie();
-    // this.adventureMovie();
-    // this.comedyMovie();
-    // this.animationMovie();
-    // this.documentaryMovie();
-    // this.sciencefictionMovie();
-    // this.thrillerMovie();
   }
 
 

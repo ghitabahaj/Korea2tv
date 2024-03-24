@@ -83,27 +83,6 @@
     </div>
   </div>
 
-
-  <div class="comment-section">
-    <h3 style="color: goldenrod !important;">Comments</h3>
-    <!-- Form for adding comments -->
-    <form (ngSubmit)="addComment()">
-      <div class="form-group">
-        <textarea class="form-control" rows="3" placeholder="Add your comment"  name="content" required></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Add Comment</button>
-    </form>
-
-    <!-- Display existing comments -->
-    <div class="existing-comments" *ngIf="movieComments.length > 0">
-      <div *ngFor="let comment of movieComments" class="comment">
-        <p></p>
-        <!-- Add username or any other comment details if available -->
-      </div>
-    </div>
-    <p *ngIf="movieComments.length === 0">No comments yet.</p>
-  </div>
-
 </div>
 
     

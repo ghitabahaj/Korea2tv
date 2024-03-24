@@ -32,3 +32,13 @@ h5
   .searchElement {
     width: 400px;
   }
+  .search-input {
+    
+      transition: all 0.3s ease;
+  }
+  .search-input:hover {
+    width: 400px !important;
+  }
+  .search-input:focus {
+    width: 400px !important;
+  }

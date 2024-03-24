@@ -1,7 +1,8 @@
 <div>
     <div class="input-group">
-      <form>
-        <input type="text" class="form-control rounded-pill" [formControl]="searchTermControl" placeholder="Search movies...">
+      <form class="position-relative d-flex" style="width: max-content;" >
+        <i class="bi bi-search position-absolute end-0 top-50 me-2" style="transform: translate(0,-50%);"></i>
+        <input type="text" class="form-control rounded-pill bg-secondary border-0 hover search-input" style="width: 34px; "   [formControl]="searchTermControl" placeholder="Search movies...">
       </form>
     </div>
   </div>

@@ -50,7 +50,7 @@
       <ng-container *ngSwitchCase="'app_loaded'">
         <!-- Check if the loaded data is for Korean movies -->
         <div *ngIf="state.appData && state.appData.result && state.appData.result.page && state.appData.result.page.content" class="row mt-4">
-          <h5 class="text-white">All Movies</h5>
+          <h5 class="text-white fs-4 title5">All Movies</h5>
           <div class="rowposter mt-3 p-2">
             <!-- Iterate over the list of Korean movies -->
             <ng-container *ngFor="let item of state.appData.result.page.content">
@@ -74,7 +74,7 @@
       <ng-container *ngSwitchCase="'app_loaded'">
         <!-- Check if the loaded data is for Korean movies -->
         <div *ngIf="state.appData && state.appData.result && state.appData.result.page && state.appData.result.page.content" class="row mt-4">
-          <h5 class="text-white">Romance Movies</h5>
+          <h5 class="text-white title5">Romance Movies</h5>
           <div class="rowposter mt-3 p-2">
             <!-- Iterate over the list of Korean movies -->
             <ng-container *ngFor="let item of state.appData.result.page.content">

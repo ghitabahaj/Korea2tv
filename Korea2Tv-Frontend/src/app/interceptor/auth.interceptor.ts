@@ -7,28 +7,32 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageServiceService } from '../service/local-storage/local-storage-service.service';
+import { authUtils } from '../helper/auth';
+import { AuthService } from '../service/auth/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private localService: LocalStorageServiceService) {}
+  constructor(private authService: AuthService) {}
 
+  intercept(request: HttpRequest<any>, next: HttpHandler) {
+    // add authorization header with jwt token if available
+    const authUserJson = authUtils.currentAccessToken();        
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (authUserJson != null) {
+        // Parse the JSON string to an object
+        const authUserParse = JSON.parse(authUserJson);
 
-    const token = this.localService.getUserToken();
-      console.log(token)
-    if(token){
+        // Extract the accessToken property
+        const accessToken = authUserParse.accessToken;            
 
+        request = request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
 
-      const authReq = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${token}`)
-      });
-
-      // Send the newly created request
-      return next.handle(authReq);
     }
-
     return next.handle(request);
-  }
+}
 }

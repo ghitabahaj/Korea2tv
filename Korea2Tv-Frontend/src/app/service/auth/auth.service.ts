@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
+import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { UserLogin } from 'src/app/models/User-login';
 import { AuthResponse } from 'src/app/models/auth-response';
+import { Register } from 'src/app/models/register';
 
 
 @Injectable({
@@ -11,20 +13,16 @@ import { AuthResponse } from 'src/app/models/auth-response';
 })
 export class AuthService {
 
-  private readonly URL_BASE = "http://localhost:8081/api/v1/auth/";
+  private apiServerUrl = "http://localhost:8080/api/v1.0.0/auth";
 
-  constructor(private _http : HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  login(UserEntity: UserLogin) : Observable<AuthResponse>{
-    console.log("login");
-
-    return this._http.post<AuthResponse>(this.URL_BASE+'login', UserEntity)
+  login(userObj: User): Observable<Token>{
+    return this.http.post<Token>(`${this.apiServerUrl}/authenticate`, userObj);
   }
 
-  register(UserEntity: User) : Observable<AuthResponse>{
-    return this._http.post<AuthResponse>(this.URL_BASE+'register', UserEntity)
+  register(userObj: Register): Observable<Token>{
+    return this.http.post<Token>(`${this.apiServerUrl}/register`, userObj);
   }
 
-  checkJwtValidity(token: string) : Observable<boolean> {
-    return this._http.get<boolean>(this.URL_BASE+`checkJwtValidity/${token}`)
-  }}
+}

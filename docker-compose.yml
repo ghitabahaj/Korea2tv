@@ -1,11 +1,12 @@
-version: '3'
+yml version: '3'
 
 services:
   mysql:
-    image: mysql:latest
+    image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "" # Empty password
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_DATABASE: korea2tv
+
     ports:
       - "3306:3306"
     networks:
@@ -14,8 +15,8 @@ services:
 
   spring-app:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./Korea2Tv-Backend
+      dockerfile: DockerFile
     ports:
       - "8080:8080"
     depends_on:
@@ -30,10 +31,10 @@ services:
 
   angular-app:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: ./Korea2Tv-Frontend
+      dockerfile: DockerFile
     ports:
-      - "4200:80"
+      - "4200:4200"
     depends_on:
       - spring-app
     networks:

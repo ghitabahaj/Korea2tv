@@ -171,20 +171,19 @@ reloadCurrentRoute(newUrl: string) {
 
 addToWatchlist() {
   if (authUtils.isLoggedIn()) {
-
-    const authUserJson = authUtils.currentAccessToken() as string;        
+    const authUserJson = authUtils.currentAccessToken() as string;
     const authUser = JSON.parse(authUserJson);
-    const accessToken = authUser.accessToken;      
-     const decodedJwt: any = jwtDecode(accessToken);
+    const accessToken = authUser.accessToken;
+    const decodedJwt: any = jwtDecode(accessToken);
     const userEmail = decodedJwt.sub;
-    console.log(userEmail, 'userEmail'); 
+    console.log(userEmail, 'userEmail');
 
-    const movieImdbId = this.movieDetails.idTmdb; 
-  
-    console.log(authUser, 'authUser'); 
-    console.log(this.movieDetails, 'movieDetails'); 
-    console.log(userEmail, 'userEmail'); // Log the user's email
-    console.log(movieImdbId, 'movieImdbId'); // Log the movie's IMDb ID
+    const movieImdbId = this.movieDetails.idTmdb;
+
+    console.log(authUser, 'authUser');
+    console.log(this.movieDetails, 'movieDetails');
+    console.log(userEmail, 'userEmail');
+    console.log(movieImdbId, 'movieImdbId');
 
     this.watchlistService.addToWatchlist(userEmail, movieImdbId).subscribe(
       (response) => {
@@ -194,6 +193,7 @@ addToWatchlist() {
           text: 'The movie has been added to your watchlist successfully.',
           confirmButtonColor: '#28a745'
         });
+        console.log(response);
       },
       error => {
         Swal.fire({
@@ -202,6 +202,7 @@ addToWatchlist() {
           text: 'Failed to add the movie to your watchlist. Please try again later.',
           confirmButtonColor: '#dc3545'
         });
+        console.log(error);
       }
     );
   } else {
@@ -213,5 +214,6 @@ addToWatchlist() {
     });
   }
 }
+
 
 }

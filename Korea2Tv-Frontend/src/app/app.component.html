@@ -20,8 +20,9 @@
     </div>
     
     <div *ngIf="isAuthenticated">
-      <button type="button" class="btn rounded-pill btn-outline-danger text-white"> <i class="fa-solid fa-user"></i>Profile</button>
-      <button type="button" class="btn rounded-pill btn-outline-danger text-white" (click)="logout()">Logout</button>
+      <button type="button" class="btn rounded-pill btn-outline-danger text-white mx-2"> <i class="fa-solid fa-user"></i>Profile</button>
+      <button type="button" class="btn rounded-pill btn-outline-danger text-white mx-2"> <i class="fa-solid fa-user"></i>My WatchList</button>
+      <button type="button" class="btn rounded-pill btn-outline-danger text-white my-2" (click)="logout()">Logout</button>
     </div>
 
   </div>
@@ -63,9 +64,7 @@
 </div>
 
 
-
-
-
+<!-- Registration Modal -->
 <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content bg-dark text-white">

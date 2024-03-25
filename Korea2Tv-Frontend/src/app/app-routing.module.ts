@@ -7,6 +7,8 @@ import { SigninComponent } from './pages/auth/signin/signin.component';
 import { ActorProfileComponent } from './pages/actor-profile/actor-profile.component';
 import { StreamingPageComponent } from './pages/stream-movie/streaming-page/streaming-page.component';
 import { MovieDetailsActorComponent } from './pages/movie-details-actor/movie-details-actor.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 
 const routes: Routes = [
@@ -20,6 +22,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: AuthInterceptor,
+      multi: true 
+    },
+  ]
 })
 export class AppRoutingModule { }

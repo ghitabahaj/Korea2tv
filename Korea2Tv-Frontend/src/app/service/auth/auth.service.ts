@@ -17,12 +17,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(userObj: User): Observable<Token>{
-    return this.http.post<Token>(`${this.apiServerUrl}/authenticate`, userObj);
+  login(userObj: User): Observable<User>{
+    return this.http.post<User>(`${this.apiServerUrl}/authenticate`, userObj);
   }
 
-  register(userObj: Register): Observable<Token>{
-    return this.http.post<Token>(`${this.apiServerUrl}/register`, userObj);
+  register(userObj: Register): Observable<Register>{
+    return this.http.post<Register>(`${this.apiServerUrl}/register`, userObj);
   }
 
 }

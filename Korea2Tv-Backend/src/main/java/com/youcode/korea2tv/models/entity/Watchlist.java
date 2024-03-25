@@ -18,7 +18,7 @@ public class Watchlist {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private AppUser appUsers;
+    private AppUser appUser;
     @ManyToOne
     @JoinColumn(name = "media_id")
     private Media media;

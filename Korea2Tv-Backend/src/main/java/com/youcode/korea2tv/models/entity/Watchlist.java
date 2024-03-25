@@ -1,5 +1,6 @@
 package  com.youcode.korea2tv.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,8 +19,10 @@ public class Watchlist {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private AppUser appUser;
+    @JsonBackReference
+    private AppUser appUsers;
     @ManyToOne
     @JoinColumn(name = "media_id")
+    @JsonBackReference
     private Media media;
 }

@@ -16,9 +16,10 @@ public class WatchlistController {
     private final WatchlistService watchlistService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addToWatchlist(@RequestParam Long userId, @RequestParam Long movieId) {
+    public ResponseEntity<?> addToWatchlist(@RequestParam String userEmail, @RequestParam Long movieImdbId) {
         try {
-            watchlistService.addToWatchlist(userId, movieId);
+
+            watchlistService.addToWatchlist(userEmail, movieImdbId);
             return ResponseEntity.ok("Movie added to watchlist successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to add movie to watchlist: " + e.getMessage());

@@ -23,14 +23,17 @@ public class MediaServerPlay {
     @ManyToOne
     @MapsId("idServer")
     @JoinColumn(name = "server_id")
+    @JsonBackReference
     private ServerPlay serverPlay;
     @ManyToOne
 //    @MapsId("idSeason")
     @JoinColumn(name = "season_id")
+    @JsonBackReference
     private Season season;
     @ManyToOne
 //    @MapsId("idEpisode")
     @JoinColumn(name = "episode_id")
+    @JsonBackReference
     private Episode episode;
     @Column(length = 5000)
     private String mediaPath;

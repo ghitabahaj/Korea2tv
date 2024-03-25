@@ -24,22 +24,31 @@ public class WatchlistServiceImpl implements WatchlistService {
 
 
     @Override
-    public void addToWatchlist(Long userId, Long movieId) {
-        AppUser user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        Media media = mediaRepository.findById(movieId).orElseThrow(() -> new EntityNotFoundException("Movie not found"));
+    public void addToWatchlist(String userEmail, Long movieIdTmdb) {
+        // Find the user by email
+        AppUser user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + userEmail));
 
-        Watchlist watchlist = Watchlist.builder()
-                .appUser(user)
+        // Find the movie by idTmdb
+        Media media = mediaRepository.findMediaByIdTmdb(movieIdTmdb)
+                .orElseThrow(() -> new EntityNotFoundException("Movie not found with idTmdb: " + movieIdTmdb));
+
+        // Create a new Watchlist entry
+        Watchlist watchlist =
+            Watchlist.builder()
+                .appUsers(user)
                 .media(media)
                 .build();
+
 
         watchlistRepository.save(watchlist);
     }
 
+
     @Override
     public List<Watchlist> getWatchlistByUser(Long userId) {
         AppUser user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        return watchlistRepository.findByAppUser(user);
+        return watchlistRepository.findByAppUsers(user);
     }
 
     @Override
@@ -47,7 +56,7 @@ public class WatchlistServiceImpl implements WatchlistService {
         AppUser user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
         Media media = mediaRepository.findById(movieId).orElseThrow(() -> new EntityNotFoundException("Movie not found"));
 
-        Watchlist watchlist = watchlistRepository.findByAppUserAndMedia(user, media);
+        Watchlist watchlist = watchlistRepository.findByAppUsersAndMedia(user, media);
         if (watchlist != null) {
             watchlistRepository.delete(watchlist);
         }

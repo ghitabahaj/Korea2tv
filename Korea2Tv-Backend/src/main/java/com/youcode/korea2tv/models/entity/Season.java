@@ -1,6 +1,7 @@
 package  com.youcode.korea2tv.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,5 +39,7 @@ public class Season {
     private Set<MediaServerPlay> serverPlays;
 
     @OneToMany(mappedBy = "season")
+    @JsonManagedReference
+
     private Set<Episode> episodes;
 }

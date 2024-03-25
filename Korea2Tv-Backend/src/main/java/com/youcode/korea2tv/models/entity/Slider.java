@@ -1,5 +1,6 @@
 package  com.youcode.korea2tv.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,5 +18,6 @@ public class Slider {
     private String picture;
 
     @ManyToOne
+    @JsonBackReference
     private Media media;
 }

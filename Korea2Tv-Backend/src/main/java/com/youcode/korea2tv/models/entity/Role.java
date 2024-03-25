@@ -1,5 +1,6 @@
 package  com.youcode.korea2tv.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.youcode.korea2tv.models.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,5 +25,6 @@ public class Role {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
+    @JsonManagedReference
     private Set<Permission> permissions;
 }

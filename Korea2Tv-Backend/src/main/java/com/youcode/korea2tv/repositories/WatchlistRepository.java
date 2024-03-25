@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public interface WatchlistRepository extends JpaRepository<Watchlist, Long> {
-    List<Watchlist> findByAppUser(AppUser user);
+    List<Watchlist> findByAppUsers(AppUser user);
 
-    Watchlist findByAppUserAndMedia(AppUser user, Media media);
+    Watchlist findByAppUsersAndMedia(AppUser user, Media media);
     // You can define custom query methods if needed
 }

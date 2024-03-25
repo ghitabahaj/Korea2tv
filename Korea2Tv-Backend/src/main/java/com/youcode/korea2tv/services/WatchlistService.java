@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface WatchlistService {
 
-    void addToWatchlist(Long userId, Long movieId);
+    void addToWatchlist(String userEmail, Long movieId);
 
     List<Watchlist> getWatchlistByUser(Long userId);
 

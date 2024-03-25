@@ -1,5 +1,6 @@
 package  com.youcode.korea2tv.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.youcode.korea2tv.models.enums.TypeQualityMedia;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,5 +20,6 @@ public class TypeQuality {
     @Enumerated(EnumType.STRING)
     private TypeQualityMedia name;
     @OneToMany(mappedBy = "typeQuality")
+    @JsonManagedReference
     private List<Media> mediaList;
 }

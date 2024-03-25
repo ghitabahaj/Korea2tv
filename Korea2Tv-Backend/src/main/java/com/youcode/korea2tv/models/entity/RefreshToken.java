@@ -1,5 +1,6 @@
 package  com.youcode.korea2tv.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,5 +24,6 @@ public class RefreshToken {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonBackReference
     private AppUser user;
 }

@@ -12,8 +12,8 @@ export class WatchlistServiceService {
 
   constructor(private http: HttpClient) { }
 
-  addToWatchlist(userId: number, movieId: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/add?userId=${userId}&movieId=${movieId}`, {});
+  addToWatchlist(userId: string, movieId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/add?userEmail=${userId}&movieImdbId=${movieId}`, {});
   }
 
   getWatchlistByUser(userId: number): Observable<Watchlist[]> {

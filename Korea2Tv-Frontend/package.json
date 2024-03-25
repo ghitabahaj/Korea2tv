@@ -21,6 +21,8 @@
     "@angular/router": "^14.2.0",
     "angular-svg-icon": "^17.0.0",
     "disqus": "^0.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "ngx-disqus": "^3.0.1",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.10.7",

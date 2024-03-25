@@ -7,8 +7,8 @@ import { CommentsService } from 'src/app/service/comments/comments.service';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { authUtils } from 'src/app/helper/auth';
 import Swal from 'sweetalert2';
-
-
+import { WatchlistServiceService } from 'src/app/service/watchlistService/watchlist-service.service';
+import { jwtDecode } from "jwt-decode";
 
 
 @Component({
@@ -29,7 +29,8 @@ export class MovieDetailsComponent implements OnInit {
     private title: Title,
     private meta: Meta,
     private sanitizer: DomSanitizer,
-    private authService: AuthService,) { }
+    private authService: AuthService,
+    private watchlistService: WatchlistServiceService) { }
 
 movieDetails: any;
 relatedMovies: any[] | undefined;
@@ -170,7 +171,39 @@ reloadCurrentRoute(newUrl: string) {
 
 addToWatchlist() {
   if (authUtils.isLoggedIn()) {
-    // Add to watchlist logic here
+
+    const authUserJson = authUtils.currentAccessToken() as string;        
+    const authUser = JSON.parse(authUserJson);
+    const accessToken = authUser.accessToken;      
+     const decodedJwt: any = jwtDecode(accessToken);
+    const userEmail = decodedJwt.sub;
+    console.log(userEmail, 'userEmail'); 
+
+    const movieImdbId = this.movieDetails.idTmdb; 
+  
+    console.log(authUser, 'authUser'); 
+    console.log(this.movieDetails, 'movieDetails'); 
+    console.log(userEmail, 'userEmail'); // Log the user's email
+    console.log(movieImdbId, 'movieImdbId'); // Log the movie's IMDb ID
+
+    this.watchlistService.addToWatchlist(userEmail, movieImdbId).subscribe(
+      (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Added to Watchlist',
+          text: 'The movie has been added to your watchlist successfully.',
+          confirmButtonColor: '#28a745'
+        });
+      },
+      error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add the movie to your watchlist. Please try again later.',
+          confirmButtonColor: '#dc3545'
+        });
+      }
+    );
   } else {
     Swal.fire({
       icon: 'error',

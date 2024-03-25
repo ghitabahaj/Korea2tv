@@ -1,4 +1,4 @@
-package com.example.vistreamv2.utils;
+package com.youcode.korea2tv.utils;
 
 
 import lombok.Builder;

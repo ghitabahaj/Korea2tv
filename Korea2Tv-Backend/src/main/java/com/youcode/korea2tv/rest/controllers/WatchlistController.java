@@ -1,8 +1,11 @@
 package com.youcode.korea2tv.rest.controllers;
 
+import com.youcode.korea2tv.dtos.response.actor.ActorResDto;
 import com.youcode.korea2tv.models.entity.Watchlist;
 import com.youcode.korea2tv.services.WatchlistService;
+import com.youcode.korea2tv.utils.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +19,14 @@ public class WatchlistController {
     private final WatchlistService watchlistService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addToWatchlist(@RequestParam String userEmail, @RequestParam Long movieImdbId) {
-        try {
-
-            watchlistService.addToWatchlist(userEmail, movieImdbId);
-            return ResponseEntity.ok("Movie added to watchlist successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to add movie to watchlist: " + e.getMessage());
-        }
+    public ResponseEntity<Response<String>> addToWatchlist(@RequestParam String userEmail, @RequestParam Long movieImdbId) {
+        watchlistService.addToWatchlist(userEmail, movieImdbId);
+        return new ResponseEntity<>(Response.<String>builder()
+                .result("Movie added to watchlist successfully")
+                .message("Success")
+                .build(),
+                HttpStatus.CREATED);
     }
-
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getWatchlistByUser(@PathVariable Long userId) {
         try {

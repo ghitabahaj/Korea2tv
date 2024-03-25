@@ -1,6 +1,7 @@
 package com.youcode.korea2tv.services.impls;
 
 
+import com.youcode.korea2tv.exception.custom.MovieAlreadyInWatchlistException;
 import com.youcode.korea2tv.models.entity.AppUser;
 import com.youcode.korea2tv.models.entity.Media;
 import com.youcode.korea2tv.models.entity.Watchlist;
@@ -25,21 +26,24 @@ public class WatchlistServiceImpl implements WatchlistService {
 
     @Override
     public void addToWatchlist(String userEmail, Long movieIdTmdb) {
-        // Find the user by email
         AppUser user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + userEmail));
 
-        // Find the movie by idTmdb
         Media media = mediaRepository.findMediaByIdTmdb(movieIdTmdb)
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found with idTmdb: " + movieIdTmdb));
 
+        boolean movieAlreadyInWatchlist = watchlistRepository.existsByAppUsersAndMedia(user, media);
+
+        if (movieAlreadyInWatchlist) {
+            throw new MovieAlreadyInWatchlistException("Movie with idTmdb " + movieIdTmdb + " already exists in the watchlist.");
+        }
+
         // Create a new Watchlist entry
         Watchlist watchlist =
-            Watchlist.builder()
-                .appUsers(user)
-                .media(media)
-                .build();
-
+                Watchlist.builder()
+                        .appUsers(user)
+                        .media(media)
+                        .build();
 
         watchlistRepository.save(watchlist);
     }

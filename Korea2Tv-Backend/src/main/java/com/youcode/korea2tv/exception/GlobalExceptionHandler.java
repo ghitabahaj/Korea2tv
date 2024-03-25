@@ -2,7 +2,7 @@ package  com.youcode.korea2tv.exception;
 
 import  com.youcode.korea2tv.exception.custom.NotFoundMediaException;
 import  com.youcode.korea2tv.exception.custom.NotFoundUserException;
-import com.example.vistreamv2.utils.Response;
+import com.youcode.korea2tv.utils.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;

@@ -7,7 +7,7 @@ import com.youcode.korea2tv.services.MediaService;
 import com.youcode.korea2tv.dtos.response.movie.MovieResDto;
 import com.youcode.korea2tv.mapper.MediaMapper;
 import com.youcode.korea2tv.mapper.MovieMapper;
-import com.example.vistreamv2.utils.Response;
+import com.youcode.korea2tv.utils.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

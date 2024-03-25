@@ -34,6 +34,7 @@
     "@types/bootstrap": "^5.2.10",
     "@types/jasmine": "~4.0.0",
     "@types/jquery": "^3.5.29",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^14.18.34",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",

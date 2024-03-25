@@ -14,7 +14,13 @@
     <!-- end poster-wrapper -->
     <div class="movie-info">
       <div class="header-section">
-        <h2 style="color: whitesmoke !important;">{{ movieDetails.title }}</h2>
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 style="color: whitesmoke !important; margin-right: 10px;">{{ movieDetails.title }}</h2>
+          <button class="btn btn-outline-light p-1 rounded-pill " (click)="addToWatchlist()">
+            <i class="bi bi-plus-circle-fill" style="color: darkred;"></i> 
+            Watchlist
+          </button>
+        </div>
         <p style="color: goldenrod !important;">
           {{ movieDetails.countries[0].name }} / {{ movieDetails.originalLanguage }} / {{ movieDetails.status }} / {{ movieDetails.duration }} min
         </p>

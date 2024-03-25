@@ -4,6 +4,10 @@ import { MovieApiServiceService } from 'src/app/service/movie-api-service.servic
 import { Title,Meta } from '@angular/platform-browser';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommentsService } from 'src/app/service/comments/comments.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
+import { authUtils } from 'src/app/helper/auth';
+import Swal from 'sweetalert2';
+
 
 
 
@@ -24,7 +28,8 @@ export class MovieDetailsComponent implements OnInit {
     private route: Router,
     private title: Title,
     private meta: Meta,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private authService: AuthService,) { }
 
 movieDetails: any;
 relatedMovies: any[] | undefined;
@@ -163,6 +168,17 @@ reloadCurrentRoute(newUrl: string) {
   });
 }
 
-
+addToWatchlist() {
+  if (authUtils.isLoggedIn()) {
+    // Add to watchlist logic here
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Authentication Required',
+      text: 'You need to be authenticated to add to your watchlist.',
+      confirmButtonColor: '#dc3545'
+    });
+  }
+}
 
 }
